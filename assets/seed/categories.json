@@ -1,0 +1,16 @@
+[
+  {
+    "id": "11111111-1111-1111-1111-111111111111",
+    "name": "General Knowledge",
+    "description": "General knowledge preparation topics",
+    "icon": "public",
+    "created_at": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222222",
+    "name": "Reasoning",
+    "description": "Reasoning preparation topics",
+    "icon": "psychology",
+    "created_at": "2026-01-01T00:00:01Z"
+  }
+]

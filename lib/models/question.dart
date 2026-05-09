@@ -1,6 +1,6 @@
 class Question {
   final String id;
-  final String quizId;
+  final String sectionId;
   final String questionText;
   final String optionA;
   final String optionB;
@@ -11,7 +11,7 @@ class Question {
 
   Question({
     required this.id,
-    required this.quizId,
+    required this.sectionId,
     required this.questionText,
     required this.optionA,
     required this.optionB,
@@ -24,7 +24,7 @@ class Question {
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
       id: json['id'] as String,
-      quizId: json['quiz_id'] as String,
+      sectionId: json['section_id'] as String,
       questionText: json['question_text'] as String,
       optionA: json['option_a'] as String,
       optionB: json['option_b'] as String,
@@ -38,7 +38,7 @@ class Question {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'quiz_id': quizId,
+      'section_id': sectionId,
       'question_text': questionText,
       'option_a': optionA,
       'option_b': optionB,

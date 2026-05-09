@@ -17,7 +17,7 @@ class Quiz {
     return Quiz(
       id: json['id'] as String,
       categoryId: json['category_id'] as String,
-      title: json['description'] as String,
+      title: json['title'] as String,
       description: json['description'] as String,
       createdAt: DateTime.parse(json['created_at'] as String),
     );
