@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quiz_app_supabase/providers/local_data_providers.dart';
 import 'package:quiz_app_supabase/screens/home_screen.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _SplashScreenState extends ConsumerState<SplashScreen>
     with SingleTickerProviderStateMixin {
+  static const _minSplashDuration = Duration(seconds: 2);
+
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
@@ -31,19 +35,24 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     _animationController.forward();
+    _prepareAndNavigate();
+  }
 
-    Future.delayed(Duration(seconds: 3), () {
-      if (mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
-      }
-    }); //Future.delayed
+  Future<void> _prepareAndNavigate() async {
+    await Future.wait([
+      ref.read(appInitializationProvider.future),
+      Future<void>.delayed(_minSplashDuration),
+    ]);
+
+    if (!mounted) return;
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
+    );
   }
 
   @override
   void dispose() {
-    //TODO: implement dispose
     _animationController.dispose();
     super.dispose();
   }
@@ -64,13 +73,13 @@ class _SplashScreenState extends State<SplashScreen>
             opacity: _fadeAnimation,
             child: ScaleTransition(
               scale: _scaleAnimation,
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.quiz, size: 120, color: Colors.white),
                   SizedBox(height: 24),
                   Text(
-                    "Police Prep App",
+                    'Police Prep App',
                     style: TextStyle(
                       fontSize: 42,
                       fontWeight: FontWeight.bold,
@@ -79,7 +88,7 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "Practice Questions for Gk/IQ",
+                    'Practice Questions for Gk/IQ',
                     style: TextStyle(fontSize: 18, color: Colors.white70),
                   ),
                   SizedBox(height: 48),

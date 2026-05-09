@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
         ),
         useMaterial3: true,
-        appBarTheme: const AppBarThemeData(centerTitle: true, elevation: 0),
+        appBarTheme: const AppBarTheme(centerTitle: true, elevation: 0),
       ),
       home: const SplashScreen(),
     );

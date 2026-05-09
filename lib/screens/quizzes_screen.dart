@@ -3,159 +3,110 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app_supabase/models/category.dart';
 import 'package:quiz_app_supabase/models/quiz.dart';
-import 'package:quiz_app_supabase/screens/quiz_screen.dart';
-import 'package:quiz_app_supabase/services/supabase_service.dart';
-
 import 'package:quiz_app_supabase/providers/has_progress_provider.dart';
+import 'package:quiz_app_supabase/providers/local_data_providers.dart';
 import 'package:quiz_app_supabase/providers/quiz_progress_provider.dart';
+import 'package:quiz_app_supabase/screens/quiz_screen.dart';
 
-class QuizzesScreen extends ConsumerStatefulWidget {
+class QuizzesScreen extends ConsumerWidget {
   final Category category;
 
   const QuizzesScreen({super.key, required this.category});
 
   @override
-  ConsumerState<QuizzesScreen> createState() => _QuizzesScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final quizzesAsync = ref.watch(quizzesByCategoryProvider(category.id));
 
-class _QuizzesScreenState extends ConsumerState<QuizzesScreen> {
-  final SupabaseService _supabaseService = SupabaseService();
-
-  List<Quiz> _quizzes = [];
-  bool _isLoading = true;
-  String? _errorMessage;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadQuizzes();
-  }
-
-  Future<void> _loadQuizzes() async {
-    try {
-      setState(() {
-        _isLoading = true;
-        _errorMessage = null;
-      });
-
-      final quizzes = await _supabaseService.getQuizzesByCategory(
-        widget.category.id,
-      );
-
-      setState(() {
-        _quizzes = quizzes;
-        _isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        _errorMessage = 'Failed to load quizzes: $e';
-        _isLoading = false;
-      });
+    Future<void> refresh() async {
+      await ref.read(syncServiceProvider).syncFromSupabase();
+      ref.invalidate(quizzesByCategoryProvider(category.id));
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.category.name,
+          category.name,
           style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
         ),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
       ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _errorMessage != null
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.error_outline,
-                    size: 64,
-                    color: Colors.redAccent,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    "Failed to load Quizzes",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      fontSize: 18,
-                      color: Colors.redAccent,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    child: Text(
-                      _errorMessage!,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  ElevatedButton.icon(
-                    onPressed: _loadQuizzes,
-                    icon: const Icon(Icons.refresh),
-                    label: const Text("Retry"),
-                  ),
-                ],
+      body: quizzesAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (e, _) => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.error_outline, size: 64, color: Colors.redAccent),
+              const SizedBox(height: 16),
+              Text(
+                'Failed to load quizzes',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(fontSize: 18, color: Colors.redAccent),
               ),
-            )
-          : _quizzes.isEmpty
-          ? Center(
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Text(
+                  '$e',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey),
+                ),
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton.icon(
+                onPressed: () => ref.invalidate(quizzesByCategoryProvider(category.id)),
+                icon: const Icon(Icons.refresh),
+                label: const Text('Retry'),
+              ),
+            ],
+          ),
+        ),
+        data: (quizzes) {
+          if (quizzes.isEmpty) {
+            return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Icon(Icons.quiz_outlined, size: 64, color: Colors.grey),
                   const SizedBox(height: 16),
                   Text(
-                    "No quizzes available",
-                    style: GoogleFonts.poppins(
-                      fontSize: 18,
-                      color: Colors.grey,
-                    ),
+                    'No quizzes available',
+                    style: GoogleFonts.poppins(fontSize: 18, color: Colors.grey),
                   ),
                 ],
               ),
-            )
-          : RefreshIndicator(
-              onRefresh: _loadQuizzes,
-              child: ListView.builder(
-                padding: const EdgeInsets.all(16),
-                itemCount: _quizzes.length,
-                itemBuilder: (context, index) {
-                  final quiz = _quizzes[index];
-                  return _QuizCard(
-                    quiz: quiz,
-                    hasProgressAsync: ref.watch(hasProgressProvider(quiz.id)),
-                    onRestart: () async {
-                      await ref
-                          .read(quizProgressProvider(quiz.id).notifier)
-                          .reset();
-                      // refresh the "In progress" badge immediately
+            );
+          }
+
+          return RefreshIndicator(
+            onRefresh: refresh,
+            child: ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: quizzes.length,
+              itemBuilder: (context, index) {
+                final quiz = quizzes[index];
+                return _QuizCard(
+                  quiz: quiz,
+                  hasProgressAsync: ref.watch(hasProgressProvider(quiz.id)),
+                  onRestart: () async {
+                    await ref.read(quizProgressProvider(quiz.id).notifier).reset();
+                    ref.invalidate(hasProgressProvider(quiz.id));
+                  },
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => QuizScreen(quiz: quiz)),
+                    ).then((_) {
                       ref.invalidate(hasProgressProvider(quiz.id));
-                    },
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => QuizScreen(quiz: quiz),
-                        ),
-                      ).then((_) {
-                        // When user returns, refresh badge (in case they made progress)
-                        ref.invalidate(hasProgressProvider(quiz.id));
-                      });
-                    },
-                  );
-                },
-              ),
+                    });
+                  },
+                );
+              },
             ),
+          );
+        },
+      ),
     );
   }
 }
@@ -264,11 +215,7 @@ class _QuizCard extends StatelessWidget {
                   icon: const Icon(Icons.refresh),
                 )
               else
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                  color: Colors.grey[400],
-                ),
+                Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey[400]),
             ],
           ),
         ),
