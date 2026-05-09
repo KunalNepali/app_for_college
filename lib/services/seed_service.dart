@@ -15,7 +15,7 @@ class SeedService {
     final quizzesCount = await _localDb.countRows('quizzes');
     final questionsCount = await _localDb.countRows('questions');
 
-    if (categoriesCount > 0 || quizzesCount > 0 || questionsCount > 0) {
+    if (categoriesCount > 0 && quizzesCount > 0 && questionsCount > 0) {
       return;
     }
 

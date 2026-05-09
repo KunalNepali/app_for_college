@@ -16,6 +16,8 @@ class QuizScreen extends ConsumerStatefulWidget {
 }
 
 class _QuizScreenState extends ConsumerState<QuizScreen> {
+  bool _requestedIndexClamp = false;
+
   Future<void> _refreshQuestions() async {
     await ref.read(syncServiceProvider).syncFromSupabase();
     ref.invalidate(questionsByQuizProvider(widget.quiz.id));
@@ -122,7 +124,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                 );
                 final question = questions[currentIndex];
 
-                if (progress.currentIndex != currentIndex) {
+                if (progress.currentIndex == currentIndex) {
+                  _requestedIndexClamp = false;
+                } else if (!_requestedIndexClamp) {
+                  _requestedIndexClamp = true;
                   Future.microtask(
                     () => ref
                         .read(quizProgressProvider(widget.quiz.id).notifier)
