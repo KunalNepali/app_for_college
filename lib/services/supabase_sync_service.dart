@@ -1,6 +1,7 @@
 import 'package:quiz_app_supabase/services/local/local_database_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter/foundation.dart';
 
 class SyncResult {
   const SyncResult({required this.success, required this.message});
@@ -27,7 +28,10 @@ class SupabaseSyncService {
 
       try {
         await _incrementalSync(lastSyncAt);
-      } on PostgrestException catch (_) {
+      } on PostgrestException catch (error) {
+        debugPrint(
+          'Incremental sync failed, falling back to full sync: ${error.message}',
+        );
         await _fullSync();
       }
 

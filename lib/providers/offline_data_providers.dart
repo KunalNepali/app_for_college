@@ -12,20 +12,22 @@ final localDatabaseServiceProvider = Provider<LocalDatabaseService>((ref) {
 });
 
 final seedServiceProvider = Provider<SeedService>((ref) {
-  return SeedService(localDatabaseService: ref.read(localDatabaseServiceProvider));
+  return SeedService(
+    localDatabaseService: ref.watch(localDatabaseServiceProvider),
+  );
 });
 
 final supabaseSyncServiceProvider = Provider<SupabaseSyncService>((ref) {
   return SupabaseSyncService(
-    localDatabaseService: ref.read(localDatabaseServiceProvider),
+    localDatabaseService: ref.watch(localDatabaseServiceProvider),
   );
 });
 
 final quizRepositoryProvider = Provider<QuizRepository>((ref) {
   return QuizRepository(
-    localDatabaseService: ref.read(localDatabaseServiceProvider),
-    seedService: ref.read(seedServiceProvider),
-    supabaseSyncService: ref.read(supabaseSyncServiceProvider),
+    localDatabaseService: ref.watch(localDatabaseServiceProvider),
+    seedService: ref.watch(seedServiceProvider),
+    supabaseSyncService: ref.watch(supabaseSyncServiceProvider),
   );
 });
 
