@@ -77,7 +77,7 @@ class SyncService {
 
         final rows = (response as List<dynamic>)
             .map((row) => Map<String, dynamic>.from(row as Map))
-            .toList(growable: false);
+            .toList();
 
         if (rows.isEmpty) {
           break;

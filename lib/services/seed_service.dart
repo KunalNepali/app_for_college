@@ -41,7 +41,7 @@ class SeedService {
       final decoded = jsonDecode(indexRaw) as Map<String, dynamic>;
       final files = (decoded['files'] as List<dynamic>)
           .map((e) => e as String)
-          .toList(growable: false);
+          .toList();
 
       if (files.isNotEmpty) {
         return files;
@@ -58,6 +58,6 @@ class SeedService {
     final decoded = jsonDecode(raw) as List<dynamic>;
     return decoded
         .map((row) => Map<String, dynamic>.from(row as Map))
-        .toList(growable: false);
+        .toList();
   }
 }

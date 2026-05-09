@@ -31,7 +31,11 @@ final appInitializationProvider = FutureProvider<void>((ref) async {
   final seedService = ref.read(seedServiceProvider);
   await seedService.seedIfNeeded();
 
-  unawaited(ref.read(syncServiceProvider).syncFromSupabase());
+  unawaited(
+    ref.read(syncServiceProvider).syncFromSupabase().catchError((Object error) {
+      // Keep startup non-blocking even when sync fails.
+    }),
+  );
 });
 
 final categoriesProvider = FutureProvider<List<Category>>((ref) async {
