@@ -262,11 +262,7 @@ class LocalDatabaseService {
 
     for (final key in requiredKeys) {
       if (normalized[key] == null) {
-        if (key == 'created_at') {
-          normalized[key] = DateTime.now().toIso8601String();
-        } else {
-          throw FormatException('Missing required field: $key');
-        }
+        throw FormatException('Missing required field: $key');
       }
     }
 

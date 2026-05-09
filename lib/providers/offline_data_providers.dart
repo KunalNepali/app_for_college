@@ -30,18 +30,22 @@ final quizRepositoryProvider = Provider<QuizRepository>((ref) {
 });
 
 final categoriesProvider = FutureProvider<List<Category>>((ref) async {
-  return ref.read(quizRepositoryProvider).getCategories();
+  return ref.watch(quizRepositoryProvider).getCategories();
 });
 
 final quizzesByCategoryProvider =
     FutureProvider.family<List<Quiz>, String>((ref, categoryId) async {
-      return ref.read(quizRepositoryProvider).getQuizzesByCategory(categoryId);
+      return ref.watch(quizRepositoryProvider).getQuizzesByCategory(categoryId);
     });
 
 final questionsByQuizProvider =
     FutureProvider.family<List<Question>, String>((ref, quizId) async {
-      return ref.read(quizRepositoryProvider).getQuestionsByQuiz(quizId);
+      return ref.watch(quizRepositoryProvider).getQuestionsByQuiz(quizId);
     });
+
+final backgroundSyncProvider = FutureProvider<SyncResult>((ref) async {
+  return ref.watch(quizRepositoryProvider).syncNow();
+});
 
 final syncStatusProvider =
     AsyncNotifierProvider<SyncStatusNotifier, SyncResult?>(

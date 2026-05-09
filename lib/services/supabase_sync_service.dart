@@ -51,9 +51,9 @@ class SupabaseSyncService {
       return;
     }
 
-    final categories = await _fetchIncremental('categories', lastSyncAt);
-    final quizzes = await _fetchIncremental('quizzes', lastSyncAt);
-    final questions = await _fetchIncremental('questions', lastSyncAt);
+    final categories = await _fetchIncrementalRows('categories', lastSyncAt);
+    final quizzes = await _fetchIncrementalRows('quizzes', lastSyncAt);
+    final questions = await _fetchIncrementalRows('questions', lastSyncAt);
 
     await localDatabaseService.upsertCategories(categories);
     await localDatabaseService.upsertQuizzes(quizzes);
@@ -70,17 +70,33 @@ class SupabaseSyncService {
     await localDatabaseService.upsertQuestions(questions);
   }
 
-  Future<List<Map<String, dynamic>>> _fetchIncremental(
+  Future<List<Map<String, dynamic>>> _fetchIncrementalRows(
     String table,
     String lastSyncAt,
   ) async {
-    final response = await _supabase
+    final updatedResponse = await _supabase
         .from(table)
         .select()
         .gte('updated_at', lastSyncAt)
         .order('updated_at', ascending: true);
 
-    return _asRows(response);
+    final createdResponse = await _supabase
+        .from(table)
+        .select()
+        .gte('created_at', lastSyncAt)
+        .order('created_at', ascending: true);
+
+    final mergedById = <String, Map<String, dynamic>>{};
+    for (final row in _asRows(updatedResponse)) {
+      final id = row['id'] as String?;
+      if (id != null) mergedById[id] = row;
+    }
+    for (final row in _asRows(createdResponse)) {
+      final id = row['id'] as String?;
+      if (id != null) mergedById[id] = row;
+    }
+
+    return mergedById.values.toList();
   }
 
   Future<List<Map<String, dynamic>>> _fetchAll(String table) async {

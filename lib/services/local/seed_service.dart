@@ -56,18 +56,8 @@ class SeedService {
 
   Future<List<String>> _questionSeedFiles() async {
     final manifestString = await assetBundle.loadString('AssetManifest.json');
-    final dynamic manifestRaw = jsonDecode(manifestString);
-
-    final paths = <String>[];
-    if (manifestRaw is Map<String, dynamic>) {
-      paths.addAll(manifestRaw.keys);
-    } else if (manifestRaw is List<dynamic>) {
-      for (final item in manifestRaw) {
-        if (item is String) {
-          paths.add(item);
-        }
-      }
-    }
+    final manifestRaw = jsonDecode(manifestString) as Map<String, dynamic>;
+    final paths = manifestRaw.keys;
 
     final files = paths
         .where(

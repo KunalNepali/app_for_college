@@ -13,17 +13,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(() async {
-      final result = await ref.read(syncStatusProvider.notifier).syncNow();
-      ref.invalidate(categoriesProvider);
-      if (!mounted || result.success) return;
-      _showOfflineMessage(result.message);
-    });
-  }
-
   Future<void> _refreshCategories() async {
     final result = await ref.read(syncStatusProvider.notifier).syncNow();
     ref.invalidate(categoriesProvider);
@@ -43,7 +32,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final categoriesAsync = ref.watch(categoriesProvider);
+    final backgroundSyncAsync = ref.watch(backgroundSyncProvider);
     final syncStatus = ref.watch(syncStatusProvider).value;
+
+    ref.listen<AsyncValue<SyncResult>>(backgroundSyncProvider, (previous, next) {
+      next.whenData((result) {
+        ref.invalidate(categoriesProvider);
+        if (!mounted || result.success) return;
+        _showOfflineMessage(result.message);
+      });
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -111,7 +109,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
           return Column(
             children: [
-              if (syncStatus != null && !syncStatus.success)
+              if ((syncStatus != null && !syncStatus.success) ||
+                  (backgroundSyncAsync.valueOrNull?.success == false))
                 Container(
                   width: double.infinity,
                   color: Colors.orange.shade100,
