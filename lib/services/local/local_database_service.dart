@@ -128,6 +128,7 @@ class LocalDatabaseService {
           'categories',
           _normalizeRow(
             row,
+            tableName: 'categories',
             allowedKeys: const [
               'id',
               'name',
@@ -156,6 +157,7 @@ class LocalDatabaseService {
           'quizzes',
           _normalizeRow(
             row,
+            tableName: 'quizzes',
             allowedKeys: const [
               'id',
               'category_id',
@@ -184,6 +186,7 @@ class LocalDatabaseService {
           'questions',
           _normalizeRow(
             row,
+            tableName: 'questions',
             allowedKeys: const [
               'id',
               'quiz_id',
@@ -245,6 +248,7 @@ class LocalDatabaseService {
 
   Map<String, dynamic> _normalizeRow(
     Map<String, dynamic> row, {
+    required String tableName,
     required List<String> allowedKeys,
     required List<String> requiredKeys,
   }) {
@@ -262,7 +266,9 @@ class LocalDatabaseService {
 
     for (final key in requiredKeys) {
       if (normalized[key] == null) {
-        throw FormatException('Missing required field: $key');
+        throw FormatException(
+          'Missing required field "$key" in "$tableName" row: ${row['id'] ?? 'unknown-id'}',
+        );
       }
     }
 

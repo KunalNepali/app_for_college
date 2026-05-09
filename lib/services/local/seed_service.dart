@@ -55,18 +55,8 @@ class SeedService {
   }
 
   Future<List<String>> _questionSeedFiles() async {
-    final manifestString = await assetBundle.loadString('AssetManifest.json');
-    final manifestRaw = jsonDecode(manifestString) as Map<String, dynamic>;
-    final paths = manifestRaw.keys;
-
-    final files = paths
-        .where(
-          (path) =>
-              path.startsWith('assets/seed/questions/') && path.endsWith('.json'),
-        )
-        .toList()
-      ..sort();
-
-    return files;
+    final raw = await assetBundle.loadString('assets/seed/questions/index.json');
+    final decoded = jsonDecode(raw) as List<dynamic>;
+    return decoded.map((path) => path as String).toList()..sort();
   }
 }

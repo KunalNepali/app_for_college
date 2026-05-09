@@ -51,9 +51,14 @@ class SupabaseSyncService {
       return;
     }
 
-    final categories = await _fetchIncrementalRows('categories', lastSyncAt);
-    final quizzes = await _fetchIncrementalRows('quizzes', lastSyncAt);
-    final questions = await _fetchIncrementalRows('questions', lastSyncAt);
+    final results = await Future.wait([
+      _fetchIncrementalRows('categories', lastSyncAt),
+      _fetchIncrementalRows('quizzes', lastSyncAt),
+      _fetchIncrementalRows('questions', lastSyncAt),
+    ]);
+    final categories = results[0];
+    final quizzes = results[1];
+    final questions = results[2];
 
     await localDatabaseService.upsertCategories(categories);
     await localDatabaseService.upsertQuizzes(quizzes);
@@ -89,11 +94,17 @@ class SupabaseSyncService {
     final mergedById = <String, Map<String, dynamic>>{};
     for (final row in _asRows(updatedResponse)) {
       final id = row['id'] as String?;
-      if (id != null) mergedById[id] = row;
+      if (id == null) {
+        throw const FormatException('Supabase row missing id in incremental sync');
+      }
+      mergedById[id] = row;
     }
     for (final row in _asRows(createdResponse)) {
       final id = row['id'] as String?;
-      if (id != null) mergedById[id] = row;
+      if (id == null) {
+        throw const FormatException('Supabase row missing id in incremental sync');
+      }
+      mergedById[id] = row;
     }
 
     return mergedById.values.toList();

@@ -13,6 +13,31 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
+  ProviderSubscription<AsyncValue<SyncResult>>? _backgroundSyncSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _backgroundSyncSubscription = ref.listenManual<AsyncValue<SyncResult>>(
+      backgroundSyncProvider,
+      (previous, next) {
+        next.whenData((result) {
+          ref.invalidate(categoriesProvider);
+          if (!mounted || result.success) return;
+          _showOfflineMessage(result.message);
+        });
+      },
+    );
+
+    ref.read(backgroundSyncProvider);
+  }
+
+  @override
+  void dispose() {
+    _backgroundSyncSubscription?.close();
+    super.dispose();
+  }
+
   Future<void> _refreshCategories() async {
     final result = await ref.read(syncStatusProvider.notifier).syncNow();
     ref.invalidate(categoriesProvider);
@@ -34,14 +59,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final categoriesAsync = ref.watch(categoriesProvider);
     final backgroundSyncAsync = ref.watch(backgroundSyncProvider);
     final syncStatus = ref.watch(syncStatusProvider).value;
-
-    ref.listen<AsyncValue<SyncResult>>(backgroundSyncProvider, (previous, next) {
-      next.whenData((result) {
-        ref.invalidate(categoriesProvider);
-        if (!mounted || result.success) return;
-        _showOfflineMessage(result.message);
-      });
-    });
 
     return Scaffold(
       appBar: AppBar(
