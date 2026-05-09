@@ -38,6 +38,8 @@ dependencies:
   google_fonts: ^8.1.0
   flutter_riverpod: ^2.5.1
   shared_preferences: ^2.2.3
+  sqflite: ^2.3.3+1
+  path: ^1.9.0
 
 dev_dependencies:
   flutter_test:
@@ -61,10 +63,13 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/seed/categories.json
+    - assets/seed/quizzes.json
+    - assets/seed/questions_index.json
+    - assets/seed/questions.json
+    - assets/seed/questions_1.json
+    - assets/seed/questions_2.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

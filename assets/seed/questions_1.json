@@ -1,0 +1,24 @@
+[
+  {
+    "id": "q_gk_1",
+    "quiz_id": "quiz_gk_1",
+    "question_text": "What is the capital city of Nepal?",
+    "option_a": "Pokhara",
+    "option_b": "Kathmandu",
+    "option_c": "Biratnagar",
+    "option_d": "Butwal",
+    "correct_answer": "B",
+    "created_at": "2024-01-05T00:00:00.000Z"
+  },
+  {
+    "id": "q_gk_2",
+    "quiz_id": "quiz_gk_1",
+    "question_text": "Which planet is known as the Red Planet?",
+    "option_a": "Earth",
+    "option_b": "Venus",
+    "option_c": "Mars",
+    "option_d": "Jupiter",
+    "correct_answer": "C",
+    "created_at": "2024-01-06T00:00:00.000Z"
+  }
+]

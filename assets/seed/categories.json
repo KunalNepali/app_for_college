@@ -1,0 +1,16 @@
+[
+  {
+    "id": "cat_gk",
+    "name": "General Knowledge",
+    "description": "General awareness and current affairs",
+    "icon": "quiz",
+    "created_at": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "cat_iq",
+    "name": "IQ",
+    "description": "Logical reasoning and aptitude",
+    "icon": "psychology",
+    "created_at": "2024-01-02T00:00:00.000Z"
+  }
+]
