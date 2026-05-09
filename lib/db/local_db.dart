@@ -77,6 +77,11 @@ class LocalDb {
 
   Future<int> countRows(String tableName) async {
     final db = await database;
+    const allowedTables = {'categories', 'quizzes', 'questions'};
+    if (!allowedTables.contains(tableName)) {
+      throw ArgumentError.value(tableName, 'tableName', 'Unsupported table');
+    }
+
     final result = await db.rawQuery('SELECT COUNT(*) as count FROM $tableName');
     return Sqflite.firstIntValue(result) ?? 0;
   }

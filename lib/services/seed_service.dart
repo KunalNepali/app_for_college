@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'package:quiz_app_supabase/db/local_db.dart';
@@ -47,7 +48,7 @@ class SeedService {
         return files;
       }
     } catch (_) {
-      // Fallback to single-file seed.
+      debugPrint('SeedService: questions_index.json not available, using questions.json');
     }
 
     return ['assets/seed/questions.json'];

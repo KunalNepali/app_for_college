@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -22,8 +23,9 @@ class SyncService {
       await _syncQuizzes(lastSyncAt: lastSyncAt, pageSize: pageSize);
       await _syncQuestions(lastSyncAt: lastSyncAt, pageSize: pageSize);
       await prefs.setString(_lastSyncKey, DateTime.now().toUtc().toIso8601String());
-    } catch (_) {
-      // Keep offline-first behavior: if sync fails (offline/network), keep local data.
+    } catch (error, stackTrace) {
+      debugPrint('SyncService: sync failed: $error');
+      debugPrintStack(stackTrace: stackTrace);
     }
   }
 

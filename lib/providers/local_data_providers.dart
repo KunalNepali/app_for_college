@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:quiz_app_supabase/db/local_db.dart';
@@ -33,7 +34,7 @@ final appInitializationProvider = FutureProvider<void>((ref) async {
 
   unawaited(
     ref.read(syncServiceProvider).syncFromSupabase().catchError((Object error) {
-      // Keep startup non-blocking even when sync fails.
+      debugPrint('Background sync failed on startup: $error');
     }),
   );
 });
