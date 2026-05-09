@@ -1,0 +1,16 @@
+[
+  {
+    "id": "quiz_gk_1",
+    "category_id": "cat_gk",
+    "title": "GK Basics",
+    "description": "Starter general knowledge quiz",
+    "created_at": "2024-01-01T00:01:00.000Z"
+  },
+  {
+    "id": "quiz_iq_1",
+    "category_id": "cat_iq",
+    "title": "IQ Basics",
+    "description": "Starter IQ quiz",
+    "created_at": "2024-01-01T00:01:01.000Z"
+  }
+]

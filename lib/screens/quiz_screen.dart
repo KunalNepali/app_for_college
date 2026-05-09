@@ -3,98 +3,60 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app_supabase/models/question.dart';
 import 'package:quiz_app_supabase/models/quiz.dart';
-import 'package:quiz_app_supabase/screens/result_screen.dart';
-import 'package:quiz_app_supabase/services/supabase_service.dart';
-
+import 'package:quiz_app_supabase/providers/offline_data_providers.dart';
 import 'package:quiz_app_supabase/providers/quiz_progress_provider.dart';
+import 'package:quiz_app_supabase/screens/result_screen.dart';
 
-class QuizScreen extends ConsumerStatefulWidget {
+class QuizScreen extends ConsumerWidget {
   final Quiz quiz;
+
   const QuizScreen({super.key, required this.quiz});
 
-  @override
-  ConsumerState<QuizScreen> createState() => _QuizScreenState();
-}
+  Future<void> _refresh(WidgetRef ref, BuildContext context) async {
+    final result = await ref.read(syncStatusProvider.notifier).syncNow();
+    ref.invalidate(questionsByQuizProvider(quiz.id));
 
-class _QuizScreenState extends ConsumerState<QuizScreen> {
-  final SupabaseService _supabaseService = SupabaseService();
-  List<Question> _questions = [];
-  bool _isLoading = true;
-  String? _errorMessage;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadQuestions();
-  }
-
-  Future<void> _loadQuestions() async {
-    try {
-      setState(() {
-        _isLoading = true;
-        _errorMessage = null;
-      });
-
-      final questions = await _supabaseService.getQuestionByQuiz(
-        widget.quiz.id,
+    if (!result.success && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(result.message), behavior: SnackBarBehavior.floating),
       );
-
-      setState(() {
-        _questions = questions;
-        _isLoading = false;
-      });
-
-      // After questions load, clamp saved index if needed (important on resume)
-      final progress = ref.read(quizProgressProvider(widget.quiz.id)).value;
-      if (progress != null && questions.isNotEmpty) {
-        final maxIndex = questions.length - 1;
-        if (progress.currentIndex > maxIndex) {
-          await ref
-              .read(quizProgressProvider(widget.quiz.id).notifier)
-              .jumpTo(maxIndex);
-        }
-      }
-    } catch (e) {
-      setState(() {
-        _errorMessage = 'Failed to load questions: $e';
-        _isLoading = false;
-      });
     }
   }
 
   Future<void> _submitQuiz({
+    required BuildContext context,
+    required WidgetRef ref,
+    required List<Question> questions,
     required Map<String, String> selectedAnswersByQuestionId,
   }) async {
-    int correctAnswers = 0;
-    for (final q in _questions) {
+    var correctAnswers = 0;
+    for (final q in questions) {
       final userAnswer = selectedAnswersByQuestionId[q.id];
       if (userAnswer != null && userAnswer == q.correctAnswer) {
         correctAnswers++;
       }
     }
 
-    // Optional (recommended): clear progress when finished
-    await ref.read(quizProgressProvider(widget.quiz.id).notifier).reset();
+    await ref.read(quizProgressProvider(quiz.id).notifier).reset();
 
-    // If your ResultScreen currently expects Map<int, String> (index -> answer),
-    // convert from questionId->answer to index->answer:
-    final Map<int, String> answersByIndex = {};
-    for (int i = 0; i < _questions.length; i++) {
-      final q = _questions[i];
-      final ans = selectedAnswersByQuestionId[q.id];
-      if (ans != null) answersByIndex[i] = ans;
+    final answersByIndex = <int, String>{};
+    for (var i = 0; i < questions.length; i++) {
+      final answer = selectedAnswersByQuestionId[questions[i].id];
+      if (answer != null) {
+        answersByIndex[i] = answer;
+      }
     }
 
-    if (!mounted) return;
+    if (!context.mounted) return;
 
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ResultScreen(
-          quiz: widget.quiz,
-          totalQuestions: _questions.length,
+          quiz: quiz,
+          totalQuestions: questions.length,
           correctAnswers: correctAnswers,
-          questions: _questions,
+          questions: questions,
           userAnswers: answersByIndex,
         ),
       ),
@@ -102,8 +64,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final progressAsync = ref.watch(quizProgressProvider(widget.quiz.id));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final questionsAsync = ref.watch(questionsByQuizProvider(quiz.id));
+    final progressAsync = ref.watch(quizProgressProvider(quiz.id));
 
     return WillPopScope(
       onWillPop: () async {
@@ -133,42 +96,53 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.quiz.title,
+            quiz.title,
             style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
           ),
           backgroundColor: Colors.deepPurple,
           foregroundColor: Colors.white,
-          iconTheme: const IconThemeData(color: Colors.white),
+          actions: [
+            IconButton(
+              onPressed: () => _refresh(ref, context),
+              icon: const Icon(Icons.refresh),
+              tooltip: 'Sync now',
+            ),
+          ],
         ),
-        body: _isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : _errorMessage != null
-            ? _ErrorState(errorMessage: _errorMessage!, onRetry: _loadQuestions)
-            : _questions.isEmpty
-            ? const _EmptyQuestionsState()
-            : progressAsync.when(
-                loading: () => const Center(child: CircularProgressIndicator()),
-                error: (e, _) =>
-                    Center(child: Text('Failed to load progress: $e')),
-                data: (progress) {
-                  final currentIndex = progress.currentIndex.clamp(
-                    0,
-                    _questions.length - 1,
-                  );
-                  final question = _questions[currentIndex];
+        body: questionsAsync.when(
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (error, _) => _ErrorState(
+            errorMessage: '$error',
+            onRetry: () async => ref.invalidate(questionsByQuizProvider(quiz.id)),
+          ),
+          data: (questions) {
+            if (questions.isEmpty) {
+              return const _EmptyQuestionsState();
+            }
 
-                  final selectedAnswer =
-                      progress.selectedAnswersByQuestionId[question.id];
+            return progressAsync.when(
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, _) =>
+                  Center(child: Text('Failed to load progress: $error')),
+              data: (progress) {
+                final maxIndex = questions.length - 1;
+                final currentIndex = progress.currentIndex.clamp(0, maxIndex);
 
-                  int correctSoFar = 0;
-                  for (final q in _questions) {
-                    final ans = progress.selectedAnswersByQuestionId[q.id];
-                    if (ans != null && ans == q.correctAnswer) {
-                      correctSoFar++;
-                    }
+                final question = questions[currentIndex];
+                final selectedAnswer =
+                    progress.selectedAnswersByQuestionId[question.id];
+
+                var correctSoFar = 0;
+                for (final q in questions) {
+                  final answer = progress.selectedAnswersByQuestionId[q.id];
+                  if (answer != null && answer == q.correctAnswer) {
+                    correctSoFar++;
                   }
+                }
 
-                  return Column(
+                return RefreshIndicator(
+                  onRefresh: () => _refresh(ref, context),
+                  child: ListView(
                     children: [
                       Container(
                         padding: const EdgeInsets.all(16),
@@ -179,14 +153,14 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Question ${currentIndex + 1} of ${_questions.length}',
+                                  'Question ${currentIndex + 1} of ${questions.length}',
                                   style: GoogleFonts.poppins(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 Text(
-                                  'Score: $correctSoFar / ${_questions.length}',
+                                  'Score: $correctSoFar / ${questions.length}',
                                   style: GoogleFonts.poppins(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -196,7 +170,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                             ),
                             const SizedBox(height: 8),
                             LinearProgressIndicator(
-                              value: (currentIndex + 1) / _questions.length,
+                              value: (currentIndex + 1) / questions.length,
                               backgroundColor: Colors.grey[300],
                               valueColor: const AlwaysStoppedAnimation<Color>(
                                 Colors.deepPurple,
@@ -205,149 +179,134 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                           ],
                         ),
                       ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: Theme.of(context).colorScheme.surface,
-                                  border: Border.all(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.outline.withOpacity(0.2),
-                                  ),
-                                ),
-                                child: Text(
-                                  question.questionText,
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5,
-                                  ),
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: Theme.of(context).colorScheme.surface,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.outline.withOpacity(0.2),
                                 ),
                               ),
-                              const SizedBox(height: 24),
-                              ...List.generate(4, (index) {
-                                final optionLetter = question.getOptionLetter(
-                                  index,
-                                );
-                                final optionText = question.options[index];
-                                final isSelected =
-                                    selectedAnswer == optionLetter;
-
-                                return Padding(
-                                  padding: const EdgeInsets.only(bottom: 12),
-                                  child: _OptionButton(
-                                    optionLetter: optionLetter,
-                                    optionText: optionText,
-                                    isSelected: isSelected,
-                                    onTap: () async {
-                                      await ref
-                                          .read(
-                                            quizProgressProvider(
-                                              widget.quiz.id,
-                                            ).notifier,
-                                          )
-                                          .selectAnswer(
-                                            question.id,
-                                            optionLetter,
-                                          );
-                                    },
-                                  ),
-                                );
-                              }),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 10,
-                              offset: const Offset(0, -5),
+                              child: Text(
+                                question.questionText,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.5,
+                                ),
+                              ),
                             ),
-                          ],
-                        ),
-                        child: Row(
-                          children: [
-                            if (currentIndex > 0)
-                              Expanded(
-                                child: OutlinedButton.icon(
-                                  onPressed: () async {
+                            const SizedBox(height: 24),
+                            ...List.generate(4, (index) {
+                              final optionLetter = question.getOptionLetter(index);
+                              final optionText = question.options[index];
+                              final isSelected = selectedAnswer == optionLetter;
+
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: _OptionButton(
+                                  optionLetter: optionLetter,
+                                  optionText: optionText,
+                                  isSelected: isSelected,
+                                  onTap: () async {
                                     await ref
                                         .read(
-                                          quizProgressProvider(
-                                            widget.quiz.id,
-                                          ).notifier,
+                                          quizProgressProvider(quiz.id).notifier,
                                         )
-                                        .previous();
+                                        .selectAnswer(question.id, optionLetter);
                                   },
-                                  label: const Text("Previous"),
-                                  icon: const Icon(Icons.arrow_back),
-                                  style: OutlinedButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 16,
+                                ),
+                              );
+                            }),
+                            const SizedBox(height: 16),
+                            Row(
+                              children: [
+                                if (currentIndex > 0)
+                                  Expanded(
+                                    child: OutlinedButton.icon(
+                                      onPressed: () async {
+                                        await ref
+                                            .read(
+                                              quizProgressProvider(
+                                                quiz.id,
+                                              ).notifier,
+                                            )
+                                            .previous();
+                                      },
+                                      label: const Text('Previous'),
+                                      icon: const Icon(Icons.arrow_back),
+                                      style: OutlinedButton.styleFrom(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 16,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                if (currentIndex > 0) const SizedBox(width: 12),
+                                Expanded(
+                                  flex: 2,
+                                  child: ElevatedButton(
+                                    onPressed: selectedAnswer == null
+                                        ? null
+                                        : () async {
+                                            if (currentIndex ==
+                                                questions.length - 1) {
+                                              await _submitQuiz(
+                                                context: context,
+                                                ref: ref,
+                                                questions: questions,
+                                                selectedAnswersByQuestionId:
+                                                    progress
+                                                        .selectedAnswersByQuestionId,
+                                              );
+                                            } else {
+                                              await ref
+                                                  .read(
+                                                    quizProgressProvider(
+                                                      quiz.id,
+                                                    ).notifier,
+                                                  )
+                                                  .next(questions.length);
+                                            }
+                                          },
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 16,
+                                      ),
+                                      backgroundColor: Colors.deepPurple,
+                                      foregroundColor: Colors.white,
+                                    ),
+                                    child: Text(
+                                      currentIndex == questions.length - 1
+                                          ? 'Submit Quiz'
+                                          : 'Next',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            if (currentIndex > 0) const SizedBox(width: 12),
-                            Expanded(
-                              flex: 2,
-                              child: ElevatedButton(
-                                onPressed: selectedAnswer != null
-                                    ? () async {
-                                        if (currentIndex ==
-                                            _questions.length - 1) {
-                                          await _submitQuiz(
-                                            selectedAnswersByQuestionId: progress
-                                                .selectedAnswersByQuestionId,
-                                          );
-                                        } else {
-                                          await ref
-                                              .read(
-                                                quizProgressProvider(
-                                                  widget.quiz.id,
-                                                ).notifier,
-                                              )
-                                              .next(_questions.length);
-                                        }
-                                      }
-                                    : null,
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 16,
-                                  ),
-                                  backgroundColor: Colors.deepPurple,
-                                  foregroundColor: Colors.white,
-                                ),
-                                child: Text(
-                                  currentIndex == _questions.length - 1
-                                      ? 'Submit Quiz'
-                                      : 'Next',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
+                              ],
                             ),
                           ],
                         ),
                       ),
                     ],
-                  );
-                },
-              ),
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
@@ -419,7 +378,6 @@ class _OptionButton extends StatelessWidget {
   }
 }
 
-// Small extracted widgets for readability (optional)
 class _EmptyQuestionsState extends StatelessWidget {
   const _EmptyQuestionsState();
 
@@ -436,7 +394,7 @@ class _EmptyQuestionsState extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            "No Questions available right now.",
+            'No questions available right now.',
             style: GoogleFonts.poppins(fontSize: 18, color: Colors.grey),
           ),
         ],
@@ -460,7 +418,7 @@ class _ErrorState extends StatelessWidget {
           const Icon(Icons.error_outline, size: 64, color: Colors.redAccent),
           const SizedBox(height: 16),
           Text(
-            "Failed to load questions.",
+            'Failed to load questions.',
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(fontSize: 18, color: Colors.redAccent),
           ),
@@ -477,7 +435,7 @@ class _ErrorState extends StatelessWidget {
           ElevatedButton.icon(
             onPressed: onRetry,
             icon: const Icon(Icons.refresh),
-            label: const Text("Retry"),
+            label: const Text('Retry'),
           ),
         ],
       ),
