@@ -1,0 +1,16 @@
+[
+  {
+    "id": "cat_gk",
+    "name": "General Knowledge",
+    "description": "Offline starter questions for GK practice",
+    "icon": "quiz",
+    "created_at": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "cat_iq",
+    "name": "IQ",
+    "description": "Offline starter questions for IQ practice",
+    "icon": "psychology",
+    "created_at": "2024-01-01T00:00:01.000Z"
+  }
+]
