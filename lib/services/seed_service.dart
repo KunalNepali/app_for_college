@@ -47,8 +47,11 @@ class SeedService {
       if (files.isNotEmpty) {
         return files;
       }
-    } catch (_) {
-      debugPrint('SeedService: questions_index.json not available, using questions.json');
+    } catch (error, stackTrace) {
+      debugPrint(
+        'SeedService: failed to read questions_index.json, using questions.json fallback: $error',
+      );
+      debugPrintStack(stackTrace: stackTrace);
     }
 
     return ['assets/seed/questions.json'];

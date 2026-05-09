@@ -93,7 +93,9 @@ class SyncService {
 
         offset += pageSize;
       } on PostgrestException catch (e) {
-        if (lastSyncAt != null && !fallbackTried && e.message.contains('updated_at')) {
+        final missingUpdatedAtColumn =
+            e.code == '42703' || e.message.contains('updated_at');
+        if (lastSyncAt != null && !fallbackTried && missingUpdatedAtColumn) {
           fallbackTried = true;
           lastSyncAt = null;
           offset = 0;
