@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app_supabase/screens/splash_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -11,7 +12,7 @@ Future<void> main() async {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlod3d4amxheXVja3dleWRyb2p1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczNzUwNTEsImV4cCI6MjA5Mjk1MTA1MX0.wJkXVXRb7QbJLSyOnITZp0bl_D6zsWIuBp-C4XQlNTs',
   );
 
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -27,9 +28,9 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
         ),
         useMaterial3: true,
-        appBarTheme: AppBarThemeData(centerTitle: true, elevation: 0),
+        appBarTheme: const AppBarThemeData(centerTitle: true, elevation: 0),
       ),
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }
