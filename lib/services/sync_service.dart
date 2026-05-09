@@ -70,7 +70,7 @@ class SyncService {
         var query = _supabase.from(table).select();
 
         if (lastSyncAt != null) {
-          query = query.gte('updated_at', lastSyncAt);
+          query = query.gt('updated_at', lastSyncAt);
         }
 
         final response = await query

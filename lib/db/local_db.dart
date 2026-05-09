@@ -77,21 +77,25 @@ class LocalDb {
 
   Future<int> countRows(String tableName) async {
     final db = await database;
-    late final List<Map<String, Object?>> result;
     switch (tableName) {
       case 'categories':
-        result = await db.rawQuery('SELECT COUNT(*) as count FROM categories');
-        break;
+        return Sqflite.firstIntValue(
+              await db.rawQuery('SELECT COUNT(*) as count FROM categories'),
+            ) ??
+            0;
       case 'quizzes':
-        result = await db.rawQuery('SELECT COUNT(*) as count FROM quizzes');
-        break;
+        return Sqflite.firstIntValue(
+              await db.rawQuery('SELECT COUNT(*) as count FROM quizzes'),
+            ) ??
+            0;
       case 'questions':
-        result = await db.rawQuery('SELECT COUNT(*) as count FROM questions');
-        break;
+        return Sqflite.firstIntValue(
+              await db.rawQuery('SELECT COUNT(*) as count FROM questions'),
+            ) ??
+            0;
       default:
         throw ArgumentError.value(tableName, 'tableName', 'Unsupported table');
     }
-    return Sqflite.firstIntValue(result) ?? 0;
   }
 
   Future<void> seedData({

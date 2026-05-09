@@ -33,9 +33,13 @@ final appInitializationProvider = FutureProvider<void>((ref) async {
   await seedService.seedIfNeeded();
 
   unawaited(
-    ref.read(syncServiceProvider).syncFromSupabase().catchError((Object error) {
-      debugPrint('Background sync failed on startup: $error');
-    }),
+    ref
+        .read(syncServiceProvider)
+        .syncFromSupabase()
+        .catchError((Object error, StackTrace stackTrace) {
+          debugPrint('Background sync failed on startup: $error');
+          debugPrintStack(stackTrace: stackTrace);
+        }),
   );
 });
 
