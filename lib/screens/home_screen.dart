@@ -13,14 +13,9 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  bool _didRunBackgroundSync = false;
-
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_didRunBackgroundSync) return;
-    _didRunBackgroundSync = true;
-
+  void initState() {
+    super.initState();
     Future.microtask(() async {
       final result = await ref.read(syncStatusProvider.notifier).syncNow();
       ref.invalidate(categoriesProvider);

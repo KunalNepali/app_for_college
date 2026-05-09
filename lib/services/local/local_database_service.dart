@@ -21,7 +21,6 @@ class LocalDatabaseService {
       path,
       version: 1,
       onCreate: (db, version) async => _createSchema(db),
-      onOpen: (db) async => _createSchema(db),
     );
 
     return _database!;
@@ -266,7 +265,7 @@ class LocalDatabaseService {
         if (key == 'created_at') {
           normalized[key] = DateTime.now().toIso8601String();
         } else {
-          normalized[key] = '';
+          throw FormatException('Missing required field: $key');
         }
       }
     }

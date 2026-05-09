@@ -128,14 +128,6 @@ class QuizScreen extends ConsumerWidget {
                 final maxIndex = questions.length - 1;
                 final currentIndex = progress.currentIndex.clamp(0, maxIndex);
 
-                if (progress.currentIndex > maxIndex) {
-                  Future.microtask(
-                    () => ref
-                        .read(quizProgressProvider(quiz.id).notifier)
-                        .jumpTo(maxIndex),
-                  );
-                }
-
                 final question = questions[currentIndex];
                 final selectedAnswer =
                     progress.selectedAnswersByQuestionId[question.id];
