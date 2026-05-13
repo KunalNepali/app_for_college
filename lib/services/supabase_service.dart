@@ -1,6 +1,6 @@
 import 'package:quiz_app_supabase/models/category.dart';
 import 'package:quiz_app_supabase/models/question.dart';
-import 'package:quiz_app_supabase/models/quiz.dart';
+import 'package:quiz_app_supabase/models/section.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseService {
@@ -20,27 +20,33 @@ class SupabaseService {
     }
   }
 
-  Future<List<Quiz>> getQuizzesByCategory(String categoryId) async {
+  Future<List<Section>> getSectionsByCategory(String categoryId) async {
     try {
       final response = await _supabase
-          .from('quizzes')
+          .from('sections')
           .select()
+          .eq('category_id', categoryId)
+          .order('sort_order', ascending: true)
           .order('created_at', ascending: true);
-      return (response as List).map((quiz) => Quiz.fromJson(quiz)).toList();
+
+      return (response as List)
+          .map((row) => Section.fromJson(row as Map<String, dynamic>))
+          .toList();
     } catch (e) {
-      throw Exception('Failed to load quizzes: $e');
+      throw Exception('Failed to load sections: $e');
     }
   }
 
-  Future<List<Question>> getQuestionByQuiz(String quizId) async {
+  Future<List<Question>> getQuestionsBySection(String sectionId) async {
     try {
       final response = await _supabase
           .from('questions')
           .select()
-          .eq('quiz_id', quizId)
+          .eq('section_id', sectionId)
           .order('created_at', ascending: true);
+
       return (response as List)
-          .map((question) => Question.fromJson(question))
+          .map((row) => Question.fromJson(row as Map<String, dynamic>))
           .toList();
     } catch (e) {
       throw Exception('Failed to load questions: $e');
@@ -57,19 +63,6 @@ class SupabaseService {
       return Category.fromJson(response);
     } catch (e) {
       throw Exception('Failed to load category: $e');
-    }
-  }
-
-  Future<Quiz> getQuizById(String quizId) async {
-    try {
-      final response = await _supabase
-          .from('quizzes')
-          .select()
-          .eq('id', quizId)
-          .single();
-      return Quiz.fromJson(response);
-    } catch (e) {
-      throw Exception('Failed to load quiz: $e');
     }
   }
 }

@@ -1,0 +1,193 @@
+[
+  {
+    "question": "विकासवादी सिद्धान्त (Theory of Evolution) का जनक को हुन्?",
+    "options": ["ग्रेगर मेण्डल", "चार्लस ल्येय", "चार्लस डार्विन", "जेम्स वाटसन"],
+    "correctIndex": 2
+  },
+  {
+    "question": "पहिलो वंश (F1) मा सन्तानमा देखिने गुणलाई के भनिन्छ?",
+    "options": ["लुप्त गुण", "प्रबल गुण", "फिनोटाइप", "जिनोटाइप"],
+    "correctIndex": 1
+  },
+  {
+    "question": "पहिलो वंश (F1) मा सन्तानमा नदेखिने वा लुकेर बस्ने आमाबाबुको गुणलाई के भनिन्छ?",
+    "options": ["प्रबल गुण", "लुप्त गुण", "फिनोटाइप", "वंशाणुगत गुण"],
+    "correctIndex": 1
+  },
+  {
+    "question": "कुनै पनि जीवको बाहिरबाट देख्न सकिने गुण (observable characters) लाई के भनिन्छ?",
+    "options": ["फिनोटाइप", "DNA", "जिनोटाइप", "Genome"],
+    "correctIndex": 0
+  },
+  {
+    "question": "कुनै जीवको वंशाणुले बोकेको गुणलाई के भनिन्छ?",
+    "options": [ "अवशेष (Fossil)", "विकास","फिनोटाइप", "जिनोटाइप"],
+    "correctIndex": 3
+  },
+  {
+    "question": "ग्रेगर मेण्डलको नियमलाई जनावरमा पनि प्रयोग गरिएको उदाहरण कुन हो?",
+    "options": ["झिंगा (Housefly)", "Drosophila (GT.H. Morgan)", "केराउ", "फिन्च चराहरू"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Mendel को प्रयोगमा पहिलो वंश (F1) मा देखा परेको बिरुवालाई के भनिन्छ?",
+    "options": ["शुद्ध जात (Pure line)", "लुप्त गुण", "ठिमाहा (Hybrid)", "जिन"],
+    "correctIndex": 2
+  },
+  {
+    "question": "वंशाणुगत सिद्धान्त कसले पत्ता लगाएका हुन्? (दिइएको नोट अनुसार)",
+    "options": ["ग्रेगर जोहन सेन्डल", "चार्लस डार्विन","अल्फ्रेड रसेल वालेस", "फ्रान्सिस क्रिक"],
+    "correctIndex": 0
+  },
+  {
+    "question": "कुनै रोग पुरुषमा मात्र वा महिलामा मात्र देखापर्छ भने त्यस्ता रोगलाई के भनिन्छ?",
+    "options": ["संक्रामक रोग", "अलर्जी","वंशाणुगत रोग", "लैङ्गिक रोग"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Monohybrid cross भनेको के हो?",
+    "options": [
+      "दुई वा धेरै गुण फरक भएका बिरुवाबीच परागसेचन",
+      "एउटा मात्र फरक गुण भएको बिरुवाबीच परागसेचन",
+      "अलैंगिक प्रजनन प्रक्रिया",
+      "कोष विभाजन प्रक्रिया"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "चार्ल्स डार्विनको जन्म मिति के हो?",
+    "options": ["सन् १८०९ फेब्रुअरी १२", "सन् १८५९ नोभेम्बर २४", "सन् १८८२", "सन् १९५३"],
+    "correctIndex": 0
+  },
+  {
+    "question": "'On the Origin of Species' पुस्तकका लेखक को हुन्?",
+    "options": [ "ह्यान्स ग्रस", "सोंग सि","ग्रेगर मेण्डल", "चार्लस डार्विन"],
+    "correctIndex": 3
+  },
+  {
+    "question": "The Origin of Species पहिलो पटक प्रकाशित कहिले भयो? (दिइएको नोट अनुसार)",
+    "options": ["सन् १८६५",  "सन् १९८०", "सन् १८५९","सन् १९११"],
+    "correctIndex": 2
+  },
+  {
+    "question": "चार्ल्स डार्विनले समुद्री यात्रा गर्दा चढेको जहाजको नाम के हो?",
+    "options": ["HMS Beagle", "HMS Darwin", "HMS Morgan", "HMS Wallace"],
+    "correctIndex": 0
+  },
+  {
+    "question": "प्रशान्त महासागरीय टापुहरूमा डार्विनले कुन प्राणीको अध्ययन गरेका थिए?",
+    "options": ["ढुकुर", "फिन्च नामक चराहरू", "Drosophila", "मानस नदीको माछा"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Genetics (वंशाणु विज्ञान) का पिता को हुन्?",
+    "options": ["चार्लस डार्विन","चार्लस ल्येय", "जेम्स वाटसन", "ग्रेगर मेण्डल"],
+    "correctIndex": 3
+  },
+  {
+    "question": "मेण्डलले कुन बिरुवामा प्रयोग गरेका थिए?",
+    "options": ["केराउ", "धान", "गहुँ", "आलु"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Genetics सिद्धान्त प्रतिपादन कहिले भयो? (दिइएको नोट अनुसार)",
+    "options": ["सन् १८५९", "सन् १८६५", "सन् १९५३", "सन् १९८०"],
+    "correctIndex": 1
+  },
+  {
+    "question": "DNA विशेष गरी कहाँ पाइन्छ?",
+    "options": ["केवल साइटोप्लाज्मा", "केवल न्यूक्लियस", "क्रोमोजोमहरूमा", "रक्त प्लाज्मामा"],
+    "correctIndex": 2
+  },
+  {
+    "question": "RNA कहाँ पाइन्छ?",
+    "options": ["केवल क्रोमोजोममा", "न्यूक्लियस र साइटोप्लाज्मामा", "केवल माइटोकन्ड्रिया", "केवल कोशिका झिल्लीमा"],
+    "correctIndex": 1
+  },
+  {
+    "question": "DNA को आकार कस्तो हुन्छ?",
+    "options": ["सीधा डोरी जस्तो", "गोलो घेरा जस्तो", "बटारिएको भयाङ जस्तो (Double Helix)", "चौकोर प्लेट जस्तो"],
+    "correctIndex": 2
+  },
+  {
+    "question": "DNA मा कति वटा थान (strands) हुन्छ?",
+    "options": [ "२","१", "३", "४"],
+    "correctIndex": 0
+  },
+  {
+    "question": "RNA मा कति वटा थान (strands) हुन्छ?",
+    "options": ["१", "२", "३", "४"],
+    "correctIndex": 0
+  },
+  {
+    "question": "DNA को पूर्ण रुप के हो?",
+    "options": ["Ribonucleic acid", "Deoxygenated ribose acid", "Double helix nucleic acid", "Deoxyribonucleic acid"],
+    "correctIndex": 3
+  },
+  {
+    "question": "अवशेष (Fossil) भनेको के हो?",
+    "options": [
+      "बिरुवामा पाइने हरियो पदार्थ",
+      "चट्टानमा भेटिएका जीव वा बिरुवाको छाप",
+      "DNA को टुक्रा",
+      "प्राकृतिक छनोटको प्रक्रिया"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "question": "RNA को पूर्ण रुप के हो?",
+    "options": ["Ribonucleic acid", "Deoxyribonucleic acid", "Ribosome nucleic acid", "Reactive nucleic acid"],
+    "correctIndex": 0
+  },
+
+  {
+    "question": "मानिसमा कति जोडी क्रोमोजोम हुन्छ?",
+    "options": ["२२ जोडी", "२३ जोडी", "२४ जोडी", "४६ जोडी"],
+    "correctIndex": 1
+  },
+  {
+    "question": "DNA को 3D बनावट पत्ता लगाउने व्यक्ति को हुन्? (दिइएको नोट अनुसार)",
+    "options": ["ह्यान्स ग्रस र सोंग सि","चार्लस डार्विन र वालेस", "मेण्डल र मोर्गन",  "James Watson र Francis Crick"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Gene Therapy भनेको के हो?",
+    "options": [
+              "रगत पत्ता लगाउने विधि",
+      "फिङ्गरप्रिन्ट विकास गर्ने तरिका",
+        "DNA को नक्सा बनाउने प्रक्रिया",
+      "Defective Gene लाई स्वस्थ Gene बाट प्रतिस्थापन गर्ने प्रक्रिया"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "question": "\"Forensic\" शब्द कुन भाषाबाट आएको हो?",
+    "options": ["ग्रीक", "संस्कृत", "लाटिन", "अङ्ग्रेजी"],
+    "correctIndex": 2
+  },
+  {
+    "question": "ओठको छाप (Lip print) प्रयोग गरेर व्यक्तिको पहिचान गर्ने विधि के हो?",
+    "options": [ "Chiloscopy", "Ballistics", "Toxicology", "Chiloscopy"],
+    "correctIndex": 3
+  },
+  {
+    "question": "अदृश्य (Latent) फिङ्गरप्रिन्ट विकास गर्न कुन विधि प्रयोग हुन्छ?",
+    "options": ["Luminol", "Super Glue", "Poly Light", "Breathalyzer"],
+    "correctIndex": 1
+  },
+  {
+    "question": "सतहबाट रगत पत्ता लगाउन कुन रसायन प्रयोग गरिन्छ?",
+    "options": ["Luminol", "Iodine", "Salt", "Acetone"],
+    "correctIndex": 0
+  },
+  {
+    "question": "SOCO को अर्थ के हो?",
+    "options": ["Science of Crime Office", "Scene of Crime Officer", "System of Criminal Operation", "Special Officer for Court Order"],
+    "correctIndex": 1
+  },
+  {
+    "question": "नेपालमा Central Police Forensic Lab स्थापना कहिले भयो? (दिइएको नोट अनुसार)",
+    "options": ["२०४७", "२०६३",  "२०५२","२०७२"],
+    "correctIndex": 2
+  }
+]

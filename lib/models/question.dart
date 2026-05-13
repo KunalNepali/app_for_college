@@ -1,6 +1,11 @@
 class Question {
   final String id;
-  final String quizId;
+
+  /// New schema uses section_id. Old schema used quiz_id.
+  /// Keep both optional so the app can work with either backend.
+  final String? sectionId;
+  final String? quizId;
+
   final String questionText;
   final String optionA;
   final String optionB;
@@ -11,7 +16,8 @@ class Question {
 
   Question({
     required this.id,
-    required this.quizId,
+    this.sectionId,
+    this.quizId,
     required this.questionText,
     required this.optionA,
     required this.optionB,
@@ -24,13 +30,14 @@ class Question {
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
       id: json['id'] as String,
-      quizId: json['quiz_id'] as String,
-      questionText: json['question_text'] as String,
-      optionA: json['option_a'] as String,
-      optionB: json['option_b'] as String,
-      optionC: json['option_c'] as String,
-      optionD: json['option_d'] as String,
-      correctAnswer: json['correct_answer'] as String,
+      sectionId: json['section_id'] as String?, // new
+      quizId: json['quiz_id'] as String?, // old
+      questionText: (json['question_text'] ?? '') as String,
+      optionA: (json['option_a'] ?? '') as String,
+      optionB: (json['option_b'] ?? '') as String,
+      optionC: (json['option_c'] ?? '') as String,
+      optionD: (json['option_d'] ?? '') as String,
+      correctAnswer: (json['correct_answer'] ?? '') as String,
       createdAt: DateTime.parse(json['created_at'] as String),
     );
   }
@@ -38,6 +45,8 @@ class Question {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      // write both when present; Supabase will ignore unknown columns depending on your usage
+      'section_id': sectionId,
       'quiz_id': quizId,
       'question_text': questionText,
       'option_a': optionA,

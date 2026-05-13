@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app_supabase/models/question.dart';
-import 'package:quiz_app_supabase/models/quiz.dart';
+import 'package:quiz_app_supabase/models/section.dart';
 import 'package:quiz_app_supabase/screens/home_screen.dart';
 
 class ResultScreen extends StatelessWidget {
-  final Quiz quiz;
+  final String title;
   final int totalQuestions;
   final int correctAnswers;
   final List<Question> questions;
@@ -13,7 +13,7 @@ class ResultScreen extends StatelessWidget {
 
   const ResultScreen({
     super.key,
-    required this.quiz,
+    required this.title,
     required this.totalQuestions,
     required this.correctAnswers,
     required this.questions,
@@ -91,7 +91,7 @@ class ResultScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      quiz.title,
+                      title,
                       style: GoogleFonts.poppins(
                         fontSize: 18,
                         color: Colors.white.withOpacity(0.9),

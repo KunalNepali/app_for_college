@@ -1,0 +1,1352 @@
+[
+  {
+    "question": "Who is listed here as the youngest car driver?",
+    "options": ["Dustin Jackson", "Mark L. Griffin", "Taylor Wilson", "Jack Hill"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What age is given here for the youngest car driver Dustin Jackson?",
+    "options": ["8 years", "9 years", "10 years", "12 years"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is Dustin Jackson (youngest car driver) from?",
+    "options": ["UK","USA",  "Mexico", "Nepal"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Who is listed here as the youngest judge?",
+    "options": ["Mark L. Griffin", "Taylor Wilson", "Jordan Romero", "Alia Sabur"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What age is given here for the youngest judge Mark L. Griffin?",
+    "options": ["10 years", "13 years", "16 years", "17 years"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which country is Mark L. Griffin (youngest judge) from?",
+    "options": ["USA", "South Korea", "India", "Romania"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Who is listed here as the youngest nuclear scientist?",
+    "options": ["Jonathan Strickland", "Taylor Wilson","Julian Pavone", "Valentina Mihanciuc"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What age is given here for the youngest nuclear scientist Taylor Wilson?",
+    "options": ["13 years", "15 years", "17 years", "19 years"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is Taylor Wilson (youngest nuclear scientist) from?",
+    "options": ["Mexico", "Nepal", "South Korea","USA"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Who is listed here as the youngest singer (गायक/गायिका)?",
+    "options": ["Jane Houbrick", "Shruti Pandey", "Atithi Gautam", "Alia Sabur"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What age is given here for Jane Houbrick (youngest singer)?",
+    "options": ["3 years", "5 years", "6 years", "8 years"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is Jane Houbrick from?",
+    "options": [ "India", "Nepal", "USA","UK"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Who is listed here as the youngest psychologist (मनोवैज्ञानिक)?",
+    "options": ["Andrew Almazan Anaya", "Mark L. Griffin", "Taylor Wilson", "Jack Hill"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What age is given here for Andrew Almazan Anaya (youngest psychologist)?",
+    "options": ["12 years", "14 years", "16 years", "17 years"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is Andrew Almazan Anaya (youngest psychologist) from?",
+    "options": [ "USA","Mexico", "India", "Romania"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Who is listed here as the youngest professional drummer?",
+    "options": ["Jordan Romero", "Jonathan Strickland", "Saugat Bista","Julian Pavone"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What age is given here for Julian Pavone (youngest professional drummer)?",
+    "options": [ "5 years", "6 years","5 years 10 months 3 days", "8 years"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is Julian Pavone from?",
+    "options": [ "India", "USA","Nepal", "Romania"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Who is listed here as the youngest yoga teacher (योग शिक्षक)?",
+    "options": ["Shruti Pandey", "Atithi Gautam", "Jane Houbrick", "Valentina Mihanciuc"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What age is given here for Shruti Pandey (youngest yoga teacher)?",
+    "options": ["5 years", "6 years", "7 years", "8 years"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is Shruti Pandey from?",
+    "options": [ "USA", "Nepal","India", "UK"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Who is listed here as the youngest radio presenter?",
+    "options": ["Jack Hill", "Valentina Mihanciuc", "Dustin Jackson", "Andrew Almazan Anaya"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What age is given here for Jack Hill (youngest radio presenter)?",
+    "options": ["5 years", "6 years", "8 years", "10 years"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is Jack Hill from?",
+    "options": [ "USA", "Mexico", "Nepal", "UK"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Who is listed here as the youngest college professor?",
+    "options": ["Alia Sabur", "Mark L. Griffin", "Taylor Wilson", "Jonathan Strickland"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What age is given here for Alia Sabur (youngest college professor)?",
+    "options": ["9 years", "10 years", "12 years", "13 years"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is Alia Sabur (youngest college professor) from?",
+    "options": ["USA", "Japan", "Romania", "South Korea"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Who is listed here as the youngest skydiver?",
+    "options": ["Jonathan Strickland", "Jordan Romero", "Junior Keith O'Dell", "Saugat Bista"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What age is given here for Jonathan Strickland (youngest skydiver)?",
+    "options": ["10 years", "12 years", "13 years", "16 years"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is Jonathan Strickland from?",
+    "options": ["USA", "UK", "Nepal", "Romania"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Who is listed here as the youngest pilot?",
+    "options": ["Valentina Mihanciuc", "Jonathan Strickland", "Jack Hill", "Taylor Wilson"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What age is given here for Valentina Mihanciuc (youngest pilot)?",
+    "options": ["7 years", "8 years", "9 years", "10 years"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is Valentina Mihanciuc (youngest pilot) from?",
+    "options": [ "USA", "Romania","South Korea", "India"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Who is listed here as the youngest Everest climber?",
+    "options": [ "Atithi Gautam", "Jordan Romero","Saugat Bista", "Junior Keith O'Dell"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What age is given here for Jordan Romero (youngest Everest climber)?",
+    "options": ["10 years", "12 years", "13 years", "16 years"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is Jordan Romero from?",
+    "options": ["USA", "Nepal", "India", "Mexico"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Who is listed here as the youngest billiards player?",
+    "options": ["Junior Keith O'Dell", "Jack Hill", "Dustin Jackson", "Andrew Almazan Anaya"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What age is given here for Junior Keith O'Dell (youngest billiards player)?",
+    "options": [ "3 years", "2 years 1 month","5 years", "8 years"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is Junior Keith O'Dell from?",
+    "options": [ "UK", "India", "USA","Nepal"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Who is listed here as the youngest person from Nepal in this list?",
+    "options": ["Atithi Gautam", "Saugat Bista", "Jordan Romero", "Shruti Pandey"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What age is given here for Atithi Gautam (Nepal)?",
+    "options": ["2 years", "3 years", "5 years", "7 years"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the largest imperial palace (as listed here)?",
+    "options": ["Vatican Palace, Italy", "Imperial Palace, China", "Buckingham Palace, UK", "Grand Palace, Thailand"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the largest palace by area (as listed here)?",
+    "options": ["Vatican Palace, Italy", "Versailles Palace, France", "Imperial Palace, China", "Topkapi Palace, Turkey"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is listed here as the Vatican Palace location?",
+    "options": ["France", "Spain", "Greece", "Italy"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which is the world’s first national park mentioned here?",
+    "options": ["Yellowstone National Park, USA", "Serengeti National Park, Tanzania", "Kaziranga National Park, India", "Kruger National Park, South Africa"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which parliament is mentioned here (as listed) in the UK?",
+    "options": ["House of Commons", "House of Lords", "National Assembly", "Senate"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is listed here as a pearl (मोती)?",
+    "options": [ "Cullinan", "Hoba West","Beresford Hope Pearl", "Sapphire Gem"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the largest peninsula mentioned here?",
+    "options": ["Arabia", "Balkan Peninsula", "Iberian Peninsula", "Scandinavian Peninsula"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the largest planet mentioned here?",
+    "options": ["Earth", "Jupiter", "Mars", "Saturn"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the largest moon (planet’s satellite) mentioned here?",
+    "options": ["Moon", "Titan", "Ganymede", "Europa"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which pyramid is mentioned here as the largest (as listed)?",
+    "options": ["Great Pyramid of Giza, Egypt", "Great Pyramid of Cholula, Mexico", "Pyramid of the Sun, Mexico", "Louvre Pyramid, France"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is listed here as the largest radio (or music) hall?",
+    "options": ["Radio City Music Hall, New York, USA", "BBC Radio Theatre, UK", "Sydney Opera House, Australia", "Bolshoi Theatre, Russia"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the longest railway platform mentioned here?",
+    "options": ["Grand Central Terminal, New York, USA", "Kharagpur, West Bengal, India", "Tokyo Station, Japan", "St Pancras, UK"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which railway station is listed here?",
+    "options": ["Grand Central Terminal, New York, USA", "Kharagpur, India", "Tiananmen Junction, China", "Mount Isa, Australia"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which restaurant is listed here (as given)?",
+    "options": ["Bawabet Dimashq, Syria", "Le Meurice, France", "Noma, Denmark", "El Bulli, Spain"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the largest river mentioned here?",
+    "options": ["Nile River", "Amazon River", "Yangtze River", "Mississippi River"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which school is mentioned here with 23,000 students (as listed)?",
+    "options": [ "Eton College, UK", "Harvard University", "Oxford University","City Montessori School, Lucknow"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which sea is listed here with area 2,974,600 sq km (as given)?",
+    "options": ["Arabian Sea", "Mediterranean Sea", "Baltic Sea","South China Sea"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which sea bird is listed here?",
+    "options": ["Albatross", "Penguin", "Ostrich", "Eagle"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which shopping mall is listed here with area 1,124,000 sq meters (as given)?",
+    "options": [ "Mall of America, USA", "Dubai Mall, UAE","West Edmonton Mall, Canada", "SM Mall of Asia, Philippines"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is listed here as the world’s largest snake?",
+    "options": ["Python", "Anaconda", "Cobra", "Viper"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which spider is listed here?",
+    "options": ["Huntsman Spider", "Black Widow", "Tarantula", "Brown Recluse"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which stadium is listed here with 150,000 seats (as given)?",
+    "options": [ "Camp Nou, Spain", "Wembley, UK", "Rungrado Stadium, North Korea","Maracanã, Brazil"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which star is listed here as the biggest (as given)?",
+    "options": ["Sirius", "Polaris", "VY Canis Majoris", "Sun"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which strip club is listed here with 75,000 sq ft (as given)?",
+    "options": ["Sapphire Gentlemen Club, Las Vegas, USA", "Moulin Rouge, Paris", "Privilege, Spain", "Berghain, Germany"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the largest swimming pool listed here (20 acres)?",
+    "options": ["Marina Bay Sands Pool, Singapore", "Bondi Icebergs Pool, Australia", "Y-40 Pool, Italy","San Alfonso del Mar, Chile"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which telescope location is listed here?",
+    "options": ["Atacama, Chile", "Mauna Kea, Hawaii", "Canary Islands, Spain","New Mexico, USA"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which temple is listed here?",
+    "options": ["Meenakshi Temple, India", "Borobudur, Indonesia", "Angkor Wat, Cambodia", "Golden Temple, India"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which tomb is listed here?",
+    "options": [ "Tutankhamun Tomb, Egypt","Nintoku Tomb, Osaka, Japan", "Taj Mahal, India", "Mausoleum of Halicarnassus, Turkey"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which volcano is listed here as the largest (as given)?",
+    "options": ["Mauna Loa, USA", "Mount Fuji, Japan", "Krakatoa, Indonesia", "Etna, Italy"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which zoo/reserve is listed here?",
+    "options": ["Serengeti, Tanzania", "Yellowstone, USA", "Kaziranga, India","Etosha Reserve, South Africa"],
+    "correctIndex": 3
+  },
+
+  {
+    "question": "Which is the largest dog listed here (as given: 282 pounds)?",
+    "options": [ "Samson (USA)", "Goliath Beetle","Hercules (USA)", "African Elephant"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the largest dome/stadium mentioned here?",
+    "options": ["Rungrado Stadium, North Korea", "Wembley, UK", "Camp Nou, Spain","Louisiana Superdome, USA"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which is the largest drum mentioned here (Nepal) with diameter 4.8 m and length 5 m?",
+    "options": ["Taiko Drum, Japan", "World Peace Drum, Nepal", "Djembe, Mali", "Bass Drum, USA"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which empire is mentioned here as the largest?",
+    "options": ["Roman Empire", "British Empire", "Mongol Empire", "Ottoman Empire"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the largest amusement park listed here?",
+    "options": ["Disney World, Florida, USA", "Universal Studios, Los Angeles, USA", "Disneyland Paris", "Legoland, Denmark"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which film studio/amusement park is listed here in Los Angeles?",
+    "options": ["Disney World, Florida, USA", "Bollywood Film City, India", "Universal Studios, Los Angeles, USA", "Pinewood Studios, UK"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which forest is listed here (as given)?",
+    "options": ["Russian Forest, Russia", "Amazon Forest, Brazil", "Sundarbans, India", "Congo Forest, Africa"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which gulf is listed here?",
+    "options": ["Persian Gulf", "Gulf of Mexico", "Gulf of Guinea", "Gulf of Alaska"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the largest horse listed here (as given: 7.4 feet)?",
+    "options": ["Hercules (USA)", "Secretariat (USA)", "Samson (USA)", "Bucephalus"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which hostel is listed here with 1020 beds?",
+    "options": [ "YHA London", "Zostel India", "Generator Hostel, Spain","Danhostel, Denmark"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which hotel is listed here with 6000 rooms?",
+    "options": ["First World Hotel, Malaysia", "Burj Al Arab, UAE", "Marina Bay Sands, Singapore", "The Venetian, USA"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which insect is listed here as the largest (as given)?",
+    "options": [ "Honey Bee","Goliath Beetle", "Mosquito", "Butterfly"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which island is listed here with area 2,175,597 sq km?",
+    "options": ["Greenland", "Madagascar", "Borneo", "New Guinea"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is listed here as a major junction?",
+    "options": ["Shibuya Crossing, Japan", "Times Square, USA", "Tiananmen Junction, China", "Piccadilly Circus, UK"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which artificial lake is listed here (Boulder Dam)?",
+    "options": [ "Lake Superior", "Lake Baikal", "Lake Mead","Caspian Sea"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the largest freshwater lake by surface area listed here?",
+    "options": ["Lake Superior", "Lake Mead", "Lake Baikal", "Caspian Sea"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the deepest freshwater lake listed here?",
+    "options": ["Lake Superior, Canada","Lake Baikal, Russia",  "Lake Mead, USA", "Caspian Sea"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the largest saline lake listed here (as given: 143,244 sq miles)?",
+    "options": [ "Lake Baikal","Caspian Sea", "Lake Superior", "Dead Sea"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is listed here as the largest land animal?",
+    "options": ["Giraffe", "Hippopotamus", "Rhinoceros","Elephant"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which library is listed here by area (as given)?",
+    "options": [ "Harvard University Library, USA", "British Library, UK", "Library of Alexandria, Egypt","Library of Congress, Washington DC, USA"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which library is listed here as having the most books (as given)?",
+    "options": ["Harvard University Library, USA", "Library of Congress, USA", "British Library, UK", "National Library of China"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which mental hospital is listed here?",
+    "options": ["Mayo Clinic, USA", "Pilgrim State Hospital, New York, USA", "AIIMS, India", "Johns Hopkins Hospital, USA"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which meteorite is listed here (as given)?",
+    "options": ["Hoba West", "Chelyabinsk", "Allende", "Murchison"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which meteor crater is listed here?",
+    "options": [ "Barringer Crater, USA", "Lonar Crater, India","Vredefort, South Africa", "Wolfe Creek Crater, Australia"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which military academy is listed here with 5,000 trainees and 65 sq km (as given)?",
+    "options": ["NDA, India", "Sandhurst, UK", "West Point Academy, USA", "Saint-Cyr, France"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the largest military mess listed here (as given: NDA, India) serving 2,000 people at once?",
+    "options": [ "West Point Mess, USA", "Cadet Mess, NDA, India","Sandhurst Mess, UK", "KMA Mess, Nepal"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the longest mountain range listed here?",
+    "options": [ "Himalayas, Asia", "Andes, South America","Alps, Europe", "Rockies, North America"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which museum is listed here in London?",
+    "options": ["Louvre Museum, Paris", "Met Museum, New York","British Museum, London",  "Vatican Museums, Vatican City"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which art museum is listed here in Paris?",
+    "options": ["British Museum, London", "Uffizi Gallery, Florence", "Louvre Museum, Paris", "Prado Museum, Madrid"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which national flag is listed here as the largest (as given)?",
+    "options": ["Great American Flag, USA", "Union Jack, UK", "Tricolour, France", "Rising Sun Flag, Japan"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which nightclub is listed here with 10,000 capacity in Spain?",
+    "options": ["Privilege, Spain", "Berghain, Germany", "Fabric, UK", "Moulin Rouge, France"],
+    "correctIndex": 0
+  },
+
+  {
+    "question": "Which ocean is listed here with area 166,240,400 sq km (as given)?",
+    "options": ["Atlantic Ocean","Pacific Ocean",  "Indian Ocean", "Arctic Ocean"],
+    "correctIndex": 1
+  },
+
+  {
+    "question": "Which airline is listed here?",
+    "options": ["Emirates, UAE", "Delta Airlines, USA", "Qatar Airways, Qatar", "Singapore Airlines, Singapore"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which airport is listed here in Saudi Arabia?",
+    "options": [ "Heathrow, UK", "JFK, USA", "Changi, Singapore","Aziz Airport, Saudi Arabia"],
+    "correctIndex": 3
+  },
+
+  {
+    "question": "Which is listed here as the largest bank (as given)?",
+    "options": ["World Bank", "HSBC", "Deutsche Bank","Industrial and Commercial Bank of China"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which is the largest bay listed here?",
+    "options": [ "Bay of Bengal", "Bay of Biscay","Hudson Bay, Canada", "Chesapeake Bay"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which bird is listed here as the largest?",
+    "options": ["Ostrich", "Albatross", "Eagle", "Penguin"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which epic book is listed here with 100,000 shlokas?",
+    "options": ["Mahabharata", "Ramayana", "Iliad", "Odyssey"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which canal/waterway is listed here?",
+    "options": [ "Suez Canal","Baltic-White Sea Canal", "Panama Canal", "Kiel Canal"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which cathedral church is listed here in New York, USA?",
+    "options": [ "St. Paul’s Cathedral, London", "Notre-Dame, Paris", "St. Basil’s Cathedral, Moscow","Cathedral Church of Diocese, New York, USA"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which cemetery/city is listed here (as given) in Russia?",
+    "options": ["Moscow, Russia", "Kazan, Russia", "Leningrad, Russia", "Sochi, Russia"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which church is listed here in Italy with area 3,000 sq miles (as given)?",
+    "options": [ "Notre-Dame, France", "Sagrada Familia, Spain", "St. Peter’s Basilica, Italy","Westminster Abbey, UK"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which cinema hall is listed here in New York, USA?",
+    "options": ["Radio City Music Hall, New York, USA", "IMAX London", "Dolby Theatre, USA", "Sydney Opera House, Australia"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which city is listed here as the largest by area (as given)?",
+    "options": ["Tokyo, Japan", "Mount Isa, Australia", "New York City, USA", "Delhi, India"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which city is listed here as the most populated (as given)?",
+    "options": [ "New York City, USA", "Tokyo, Japan","Shanghai, China", "Mumbai, India"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which continent is listed here as covering about 30% of the world’s land area?",
+    "options": ["Asia", "Africa", "Europe", "South America"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed here as the largest by area (as given)?",
+    "options": [ "Canada", "China","Russia", "USA"],
+    "correctIndex": 2
+  },
+
+  {
+    "question": "Which dam is listed here as a major concrete dam (as given)?",
+    "options": ["Three Gorges Dam, China", "Hoover Dam, USA", "Grand Coulee Dam, USA", "Aswan Dam, Egypt"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which delta/forest is listed here?",
+    "options": ["Amazon Basin, Brazil", "Congo Basin, Africa", "Taiga, Russia","Sundarbans, India"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which desert is listed here as the largest in Asia (as given)?",
+    "options": [ "Sahara", "Arabian Desert", "Kalahari","Gobi"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which desert is listed here as the largest in the world (as given) and is in Africa?",
+    "options": ["Gobi","Sahara",  "Atacama", "Patagonian"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which diamond is listed here (as given)?",
+    "options": ["Cullinan", "Koh-i-Noor", "Hope Diamond", "Orlov"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the smallest continent in the world?",
+    "options": ["Europe", "Antarctica", "Australia", "South America"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the smallest country in the world (by area)?",
+    "options": ["Monaco", "Nauru", "Vatican City", "San Marino"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the smallest desert in the world?",
+    "options": ["Sahara Desert", "Gobi Desert", "Carcross Desert", "Atacama Desert"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the smallest planet in the Solar System?",
+    "options": ["Mars", "Mercury", "Venus", "Earth"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the smallest bird in the world?",
+    "options": ["Sparrow", "Bee Hummingbird", "Sunbird", "Swift"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the smallest snake in the world?",
+    "options": ["Anaconda", "Python", "Barbados Threadsnake", "Cobra"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the smallest star among the options (commonly asked)?",
+    "options": ["Sun", "VY Canis Majoris", "Sirius", "Proxima Centauri"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which is the smallest coin among the options (commonly cited as the smallest coin)?",
+    "options": ["US Dime", "Indian 1 Rupee", "Panama 1/2 centésimo", "UK Penny"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the smallest dog breed in the world (commonly accepted)?",
+    "options": ["German Shepherd", "Chihuahua", "Labrador Retriever", "Beagle"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the smallest cat breed in the world (commonly accepted)?",
+    "options": ["Maine Coon", "Persian", "Singapura", "Siamese"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the smallest monkey in the world?",
+    "options": ["Mandrill", "Pygmy Marmoset", "Howler Monkey", "Baboon"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the smallest bat in the world (commonly known)?",
+    "options": ["Indian Flying Fox", "Bumblebee Bat (Kitti’s hog-nosed bat)", "Vampire Bat", "Fruit Bat"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the smallest robot among the options (commonly cited)?",
+    "options": ["Roomba", "RoboBee", "ASIMO", "Spot"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the smallest satellite among the options (commonly cited)?",
+    "options": ["Hubble Telescope", "CubeSat", "ISS", "GPS Satellite"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the smallest radio station format (community/local) commonly considered the smallest type?",
+    "options": ["International broadcaster", "National broadcaster", "Community radio", "Satellite radio"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the smallest museum in the world (commonly cited)?",
+    "options": ["The Louvre (France)", "British Museum (UK)", "The Little Museum of Dublin (Ireland)", "The Smallest Museum in the World (Warwickshire, UK)"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which is the smallest book in the world (commonly cited)?",
+    "options": ["Teeny Ted from Turnip Town", "Bible", "Oxford Dictionary", "Guinness World Records"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the smallest car in the world (commonly cited)?",
+    "options": ["Peel P50", "Mini Cooper", "Fiat 500", "Smart Fortwo"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the smallest plant in the world (commonly cited)?",
+    "options": ["Banyan", "Rafflesia", "Wolffia (duckweed)", "Sunflower"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the smallest violin in the world (commonly cited)?",
+    "options": ["Full-size violin", "Mini violin (3/4)", "World’s smallest playable violin (microminiature)", "Cello"],
+    "correctIndex": 2
+  },
+
+  {
+    "question": "Which is the tallest building mentioned in the provided list?",
+    "options": ["Taipei 101 (Taiwan)", "Gold Coast (Australia)", "Lomonosov building (Russia)", "Spring Temple Buddha (China)"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Taipei 101 has how many floors and what height (as stated in the provided list)?",
+    "options": ["101 floors, 509 m", "88 floors, 452 m", "100 floors, 500 m", "120 floors, 600 m"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the tallest statue listed in the provided text?",
+    "options": ["Spring Temple Buddha (China)", "Statue of Liberty (USA)", "Christ the Redeemer (Brazil)", "The Thinker (France)"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the height of the Spring Temple Buddha (as stated in the list)?",
+    "options": ["88 m", "100 m", "128 m", "150 m"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the highest railway line listed in the provided text (as stated)?",
+    "options": ["Trans-Siberian Railway (Russia)", "La Cima Railway Line (Peru)", "Kharagpur Platform (India)", "Andes rail (Chile)"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is the altitude of the La Cima railway line (as stated in the list)?",
+    "options": ["3,810 m", "4,000 m", "4,817 m", "5,642 m"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the highest road listed in the provided text?",
+    "options": ["Leh–Nubra Road, India", "Pan-American Highway", "Great Ocean Road, Australia", "Transfăgărășan, Romania"],
+    "correctIndex": 0
+  },
+
+  {
+    "question": "Which country has the maximum number of voters (as stated in the list)?",
+    "options": ["China", "India", "USA", "Russia"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the best-selling book (as stated in the list)?",
+    "options": ["Bible", "Mahabharata", "Quran", "Harry Potter"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the most expensive city (as stated in the list)?",
+    "options": ["Tokyo, Japan", "Paris, France", "New York, USA", "London, UK"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is stated to have borders with 14 countries?",
+    "options": ["India", "Russia", "China", "Brazil"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is stated as producing the most gold (as given in the list)?",
+    "options": ["South Africa", "Australia", "China", "Russia"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the best-selling cigarette brand (as stated in the list)?",
+    "options": ["Marlboro", "Gold Flake", "Camel", "Dunhill"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the best-selling soft drink (as stated in the list)?",
+    "options": ["Pepsi", "Coca-Cola", "Sprite", "Fanta"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the best-selling women’s magazine (as stated in the list)?",
+    "options": ["Vogue", "Cosmopolitan", "Women’s Weekly", "Elle"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which insect is stated to live the longest (as stated in the list)?",
+    "options": ["Honeybee", "Queen termites", "Ant", "Mosquito"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which watch company is listed as producing the most watches (as stated in the list)?",
+    "options": ["Rolex", "Citizen (Japan)", "Omega", "Seiko"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which city is listed as the most polluted city (as stated in the list)?",
+    "options": ["Delhi", "Mexico City", "Beijing", "Lagos"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed as having the most drug users (as stated in the list)?",
+    "options": ["Colombia", "USA", "Russia", "Brazil"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed as having the most divorces (as stated in the list)?",
+    "options": ["Russia", "USA", "Japan", "France"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which beer is listed as the best-selling beer (as stated in the list)?",
+    "options": ["Heineken", "Budweiser", "Nile Beer", "Corona"],
+    "correctIndex": 2
+  },
+
+  {
+    "question": "Which is the busiest airport (as stated in the list)?",
+    "options": ["Heathrow Airport", "Hartsfield–Jackson Airport (USA)", "Dubai International Airport", "Changi Airport"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed as receiving the most rainfall (as stated in the list)?",
+    "options": ["India", "Brazil", "Japan", "Indonesia"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed as having the most earthquakes (as stated in the list)?",
+    "options": ["Chile", "Japan", "Indonesia", "Nepal"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed as having the most rivers/water resources (as stated in the list)?",
+    "options": ["Brazil", "India", "Russia", "Canada"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed as having the most forest area (as stated in the list)?",
+    "options": ["Brazil", "Russia", "Canada", "USA"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed as having the most bicycles (as stated in the list)?",
+    "options": ["Netherlands", "China", "India", "Germany"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which city is listed as having the most telephone lines (as stated in the list)?",
+    "options": ["Los Angeles, USA", "Tokyo, Japan", "London, UK", "Paris, France"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed as having the most telephone users (as stated in the list)?",
+    "options": ["Sweden", "Japan", "India", "USA"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed as using the most robots (as stated in the list)?",
+    "options": ["Japan", "USA", "Germany", "China"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed as having the most e-mail users (as stated in the list)?",
+    "options": ["India", "USA", "Japan", "Brazil"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which religion is listed as having the most followers (as stated in the list)?",
+    "options": ["Hinduism", "Islam", "Christianity", "Buddhism"],
+    "correctIndex": 2
+  },
+
+  {
+    "question": "Which country is listed as having leaders’ names written in its constitution?",
+    "options": ["Japan","China",  "India", "France"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed where telephone charges are not applied?",
+    "options": ["Kuwait", "Qatar", "UAE", "Bahrain"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed as having very strict law and order?",
+    "options": [ "Oman", "Jordan", "Iraq", "Saudi Arabia"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which country is listed as providing loans for marriage?",
+    "options": ["UAE", "Kuwait", "Saudi Arabia", "Qatar"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is listed as having no cinema halls?",
+    "options": ["Kuwait", "Bahrain", "Saudi Arabia", "UAE"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is listed as celebrating New Year by playing Holi?",
+    "options": ["Thailand", "Myanmar", "India", "Nepal"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed as having no rhinoceros?",
+    "options": ["India", "Sri Lanka", "Nepal", "South Africa"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed as having no national song?",
+    "options": ["Austria", "Sweden", "Norway","Switzerland"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which country is listed as not being involved in any war?",
+    "options": ["Switzerland", "France", "Germany", "Italy"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed as having no police and no jail?",
+    "options": ["Switzerland", "Panama", "Iceland", "Paraguay"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is listed as having no mosquitoes?",
+    "options": [ "France", "Iceland","Panama", "Paraguay"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed where coin currency is not used?",
+    "options": ["France", "Paraguay", "India", "Japan"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed as having no central bank?",
+    "options": ["Panama", "Paraguay", "France", "India"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is listed as the world’s northernmost capital city?",
+    "options": ["Helsinki, Finland", "Oslo, Norway", "Reykjavik, Iceland", "Stockholm, Sweden"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is listed as the world’s northernmost city?",
+    "options": ["Tromsø, Norway", "Longyearbyen, Norway", "Murmansk, Russia","Hammerfest, Norway"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which is listed as the world’s southernmost city?",
+    "options": ["Punta Arenas, Chile", "Pata Erikcs, Chile", "Ushuaia, Argentina", "Christchurch, New Zealand"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is listed as the world’s southernmost capital?",
+    "options": ["Wellington, New Zealand", "Canberra, Australia", "Buenos Aires, Argentina", "Santiago, Chile"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is listed as the oldest British colony?",
+    "options": ["India", "Australia", "Newfoundland","Canada"],
+    "correctIndex": 2
+  },
+
+  {
+    "question": "Which is the longest animal (as listed: 180 feet)?",
+    "options": ["Blue whale", "Region Worm (180 ft)","Anaconda", "Giraffe"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the longest arch bridge listed here (552 m, China)?",
+    "options": ["Chaotianmen Bridge", "Akashi Kaikyō Bridge", "Danyang–Kunshan Grand Bridge", "Weibaihe River Bridge"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the longest bridge in the world listed here (164 km, China)?",
+    "options": ["Weibaihe River Bridge", "Danyang–Kunshan Grand Bridge", "Akashi Kaikyō Bridge", "Golden Gate Bridge"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the longest road-rail bridge listed here (10.02 km, China)?",
+    "options": [ "Danyang–Kunshan Grand Bridge", "Chaotianmen Bridge", "Weibaihe River Bridge","Brooklyn Bridge"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the longest ship canal listed here (as stated: 161.9 km)?",
+    "options": ["Suez Canal", "Panama Canal", "Baltic-White Sea Canal", "Karakum Canal"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the longest irrigation canal listed here (850 km, Turkmenistan)?",
+    "options": [ "Volga–Baltic Canal", "Karakum Canal","Suez Canal", "Grand Canal (China)"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is listed as the longest cat (123 cm, USA)?",
+    "options": ["Persian cat", "Siamese cat", "Maine Coon","Stewie cat"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which is the longest glacier listed here (510 km)?",
+    "options": ["Bering Glacier", "Khumbu Glacier", "Dojampa Glacier","Lambert Glacier"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which is the longest highway listed here?",
+    "options": ["Great Ocean Road", "Route 66","Pan-American Highway",  "Trans-Canada Highway"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the longest mountain range listed here (7,224 km)?",
+    "options": [ "Himalayas", "Alps","Andes", "Rockies"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the longest railway listed here (9,438 km, Russia)?",
+    "options": [ "Orient Express", "Trans-Siberian Railway","Shinkansen", "Indian Railways"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the longest railway platform listed here?",
+    "options": [ "Grand Central Terminal, USA","Kharagpur, India", "Tokyo Station, Japan", "London Paddington, UK"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is listed here as the longest river (6,690 km)?",
+    "options": ["Amazon River", "Yangtze River", "Nile River", "Mississippi–Missouri"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is listed here as the longest sea (760 miles) (as stated)?",
+    "options": ["Caspian Sea", "Mediterranean Sea", "Red Sea", "Black Sea"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is the longest suspension bridge listed here (1,991 m, Japan)?",
+    "options": [ "Golden Gate Bridge", "Brooklyn Bridge", "Akashi Kaikyō Bridge","Tower Bridge"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is the longest road tunnel listed here (24.51 km, Norway) (as stated)?",
+    "options": ["Gotthard Base Tunnel", "Lærdal Tunnel", "Channel Tunnel", "Seikan Tunnel"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is the longest railway tunnel listed here (57.1 km, Switzerland)?",
+    "options": ["Lærdal Tunnel", "Seikan Tunnel", "Channel Tunnel","Gotthard Base Tunnel"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which is the longest wall listed here (6,260 km, China)?",
+    "options": ["Hadrian’s Wall", "Berlin Wall", "Wall of Jericho","Great Wall of China"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which is the tallest living tree?",
+    "options": ["Hyperion (USA)", "Harbour Wave (USA)", "Mauna Kea (USA)", "Angel Falls (Venezuela)"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What height is given here for the tallest living tree “Hyperion”?",
+    "options": ["312 ft", "379 ft 1 in", "524 m", "4,205 m"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which is listed here as the highest tsunami (as stated)?",
+    "options": ["Harbour Wave (524 m), USA", "Angel Falls, Venezuela", "Mariana Trench, Pacific", "Mauna Kea, USA"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is listed here as the highest volcano (as stated)?",
+    "options": ["Mount Everest", "Mount Kilimanjaro", "Mauna Kea (4,205 m), USA", "Vinson Massif"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which is listed here as the highest waterfall (as stated)?",
+    "options": ["Angel Falls (3,212 ft), Venezuela", "Victoria Falls","Niagara Falls",  "Yosemite Falls"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Who is listed here as the tallest deceased woman (as stated)?",
+    "options": ["Yao Defen", "Sultan Kösen", "Robert Wadlow","Zeng Jinlian"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What height is given here for Zeng Jinlian (tallest deceased woman) (as stated)?",
+    "options": ["8 ft 1.75 in", "7 ft 8 in", "7 ft 1 in", "6 ft 11 in"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Who is listed here as the tallest living woman (as stated)?",
+    "options": ["Zeng Jinlian", "Yao Defen", "Jyoti Amge", "Sandy Allen"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What height is given here for Yao Defen (tallest living woman) (as stated)?",
+    "options": [ "8 ft 1.75 in", "6 ft 10 in","7 ft 8 in", "7 ft 2 in"],
+    "correctIndex": 2
+  },
+
+  {
+    "question": "What is the deepest point in the world’s oceans?",
+    "options": ["Puerto Rico Trench", "Mariana Trench (Pacific Ocean)", "Java Trench", "Tonga Trench"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What depth is given here for the Mariana Trench (as stated)?",
+    "options": ["11,033 m", "10,994 m", "8,848 m", "4,817 m"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which crater is listed here as deepest (as stated)?",
+    "options": ["Meteor Crater (USA)", "Nairiger Crater (USA)", "Vredefort Crater (South Africa)", "Lonar Crater (India)"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What depth is given here for the deepest crater (Nairiger Crater, USA) (as stated)?",
+    "options": ["175 m", "393 m", "6,967 m", "5,315 m"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which gorge is listed here as deepest (as stated)?",
+    "options": ["Grand Canyon (USA)", "Andha Galchhi, Kali Gandaki, Nepal", "Drake Passage", "Khumbu Gorge"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What depth is given here for the Andha Galchhi (Kali Gandaki, Nepal) (as stated)?",
+    "options": ["6,967 m", "5,315 m", "175 m", "393 m"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which lake is listed here as the deepest (as stated)?",
+    "options": ["Lake Superior", "Lake Baikal (Russia)", "Lake Tanganyika", "Lake Victoria"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What depth is given here for Lake Baikal (as stated)?",
+    "options": ["1,642 m", "3,810 m", "5,315 m", "175 m"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which road is listed here as the deepest/lowest (as stated)?",
+    "options": ["Leh–Nubra Road (India)", "Pan-American Highway", "Lærdal Tunnel Road","Dead Sea Road (Israel)"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What is deptg for the Dead Sea Road (Israel) (as stated)?",
+    "options": ["175 m", "5,315 m", "11,033 m","393 m"],
+    "correctIndex": 3
+  },
+
+  {
+    "question": "Which country is the highest producer of apples?",
+    "options": ["India", "China", "Italy", "USA"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is the highest producer of onions?",
+    "options": ["China", "India", "Bangladesh", "Germany"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is the highest producer of beer?",
+    "options": ["China", "Germany", "USA", "Brazil"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is the highest producer of paper?",
+    "options": ["India", "China", "USA", "Japan"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is the highest producer of sugarcane?",
+    "options": ["Brazil", "India", "China", "Thailand"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is the highest producer of tomatoes?",
+    "options": ["India", "China", "Italy", "USA"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is the highest producer of wine?",
+    "options": ["France", "Italy", "Spain", "USA"],
+    "correctIndex": 0
+  },
+
+  {
+    "question": "Which region is listed here as the largest island group?",
+    "options": ["Malaya Archipelago", "Caribbean Islands", "Hawaiian Islands", "Canary Islands"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed here as the most populated country?",
+    "options": ["India", "China", "USA", "Russia"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed here as having the most forests?",
+    "options": ["Brazil", "Russia", "Canada", "USA"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed here as having the most tigers?",
+    "options": ["Bangladesh", "India", "Russia", "Nepal"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which city is listed here as the most polluted city?",
+    "options": ["Delhi", "Beijing", "Tokyo","Mexico City"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which country is listed here as having the most drug users?",
+    "options": ["USA", "Russia","Colombia",  "Brazil"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is listed here as having the most divorces?",
+    "options": ["Russia", "USA", "Japan", "France"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed here as having the most cinema halls?",
+    "options": ["India", "USA", "China", "Russia"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which beer is listed here as the best-selling beer?",
+    "options": ["Nile Beer", "Heineken", "Budweiser", "Corona"],
+    "correctIndex": 0
+  },
+
+  {
+    "question": "Which is listed here as the busiest airport in the world?",
+    "options": ["Heathrow Airport", "Hartsfield–Jackson Airport (USA)", "Dubai International Airport", "Changi Airport"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed here as receiving the most rainfall?",
+    "options": ["India", "Brazil", "Japan", "Indonesia"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed here as having the most earthquakes?",
+    "options": ["Chile", "Japan", "Indonesia", "Nepal"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed here as having the most rivers/water resources?",
+    "options": ["Brazil", "Canada", "Russia", "India"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed here as having the most forest area?",
+    "options": ["Brazil", "Russia", "Canada", "USA"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed here as having the most bicycles?",
+    "options": ["Netherlands", "China", "India", "Germany"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which city is listed here as having the most telephone lines?",
+    "options": ["Tokyo, Japan", "London, UK", "Los Angeles, USA", "Paris, France"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is listed here as having the most telephone users?",
+    "options": ["Japan", "India","Sweden",  "USA"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is listed here as using the most robots?",
+    "options": [ "USA", "Germany", "China","Japan"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which country is listed here as having the most e-mail users?",
+    "options": ["USA", "Japan", "Brazil","India"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which religion is listed here as having the most followers?",
+    "options": ["Hinduism", "Islam", "Christianity", "Buddhism"],
+    "correctIndex": 2
+  },
+
+  {
+    "question": "Which country is listed here as the highest producer of cocaine?",
+    "options": ["Peru", "Bolivia", "Colombia", "Mexico"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is listed here as the highest producer of peas?",
+    "options": ["India", "Australia", "China", "USA"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed here as the highest producer of coffee?",
+    "options": ["Vietnam", "Brazil", "Colombia", "Ethiopia"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed here as the highest producer of peanuts?",
+    "options": ["India", "China", "Nigeria", "USA"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed here as the highest producer of electricity?",
+    "options": ["China", "India", "USA", "Russia"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which country is listed here as the highest producer of jute?",
+    "options": ["India", "Bangladesh", "China", "Brazil"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed here as the highest producer of maize (corn)?",
+    "options": ["Brazil", "USA", "China", "Argentina"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed here as the highest producer of potatoes?",
+    "options": ["Germany", "India", "China", "Bangladesh"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which country is listed here as the highest producer of rice (धान)?",
+    "options": ["India", "China", "Bangladesh", "Vietnam"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which country is listed here as the highest producer of strawberries?",
+    "options": ["USA", "Spain", "China", "Mexico"],
+    "correctIndex": 2
+  }
+]

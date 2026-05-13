@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app_supabase/models/question.dart';
-import 'package:quiz_app_supabase/models/quiz.dart';
+import 'package:quiz_app_supabase/models/section.dart';
 import 'package:quiz_app_supabase/screens/result_screen.dart';
 import 'package:quiz_app_supabase/services/supabase_service.dart';
 
 import 'package:quiz_app_supabase/providers/quiz_progress_provider.dart';
 
 class QuizScreen extends ConsumerStatefulWidget {
-  final Quiz quiz;
-  const QuizScreen({super.key, required this.quiz});
+  final Section section;
+  const QuizScreen({super.key, required this.section});
 
   @override
   ConsumerState<QuizScreen> createState() => _QuizScreenState();
@@ -35,8 +35,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
         _errorMessage = null;
       });
 
-      final questions = await _supabaseService.getQuestionByQuiz(
-        widget.quiz.id,
+      final questions = await _supabaseService.getQuestionsBySection(
+        widget.section.id,
       );
 
       setState(() {
@@ -45,12 +45,12 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       });
 
       // After questions load, clamp saved index if needed (important on resume)
-      final progress = ref.read(quizProgressProvider(widget.quiz.id)).value;
+      final progress = ref.read(quizProgressProvider(widget.section.id)).value;
       if (progress != null && questions.isNotEmpty) {
         final maxIndex = questions.length - 1;
         if (progress.currentIndex > maxIndex) {
           await ref
-              .read(quizProgressProvider(widget.quiz.id).notifier)
+              .read(quizProgressProvider(widget.section.id).notifier)
               .jumpTo(maxIndex);
         }
       }
@@ -74,7 +74,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     }
 
     // Optional (recommended): clear progress when finished
-    await ref.read(quizProgressProvider(widget.quiz.id).notifier).reset();
+    await ref.read(quizProgressProvider(widget.section.id).notifier).reset();
 
     // If your ResultScreen currently expects Map<int, String> (index -> answer),
     // convert from questionId->answer to index->answer:
@@ -91,7 +91,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => ResultScreen(
-          quiz: widget.quiz,
+          title: widget.section.name,
           totalQuestions: _questions.length,
           correctAnswers: correctAnswers,
           questions: _questions,
@@ -103,7 +103,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final progressAsync = ref.watch(quizProgressProvider(widget.quiz.id));
+    final progressAsync = ref.watch(quizProgressProvider(widget.section.id));
 
     return WillPopScope(
       onWillPop: () async {
@@ -133,7 +133,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.quiz.title,
+            widget.section.name,
             style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
           ),
           backgroundColor: Colors.deepPurple,
@@ -250,7 +250,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                                       await ref
                                           .read(
                                             quizProgressProvider(
-                                              widget.quiz.id,
+                                              widget.section.id,
                                             ).notifier,
                                           )
                                           .selectAnswer(
@@ -286,7 +286,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                                     await ref
                                         .read(
                                           quizProgressProvider(
-                                            widget.quiz.id,
+                                            widget.section.id,
                                           ).notifier,
                                         )
                                         .previous();
@@ -316,7 +316,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                                           await ref
                                               .read(
                                                 quizProgressProvider(
-                                                  widget.quiz.id,
+                                                  widget.section.id,
                                                 ).notifier,
                                               )
                                               .next(_questions.length);
