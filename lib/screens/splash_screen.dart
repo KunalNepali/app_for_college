@@ -17,6 +17,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   late final Animation<double> _fadeAnimation;
   late final Animation<double> _scaleAnimation;
   String? _error;
+  bool _syncWarningShown = false;
 
   @override
   void initState() {
@@ -42,16 +43,24 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     try {
       await ref.read(localDatabaseServiceProvider).database;
       await ref.read(seedImportServiceProvider).importIfNeeded();
-      await ref.read(syncServiceProvider).syncAll();
+      try {
+        await ref.read(syncServiceProvider).syncAll();
+      } catch (e) {
+        _error = 'Sync skipped: $e';
+        _syncWarningShown = true;
+      }
 
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        MaterialPageRoute(
+          builder: (_) => HomeScreen(syncWarningMessage: _error),
+        ),
       );
     } catch (e) {
       if (!mounted) return;
       setState(() {
         _error = 'Failed to initialize app data: $e';
+        _syncWarningShown = false;
       });
     }
   }
@@ -97,7 +106,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                     style: TextStyle(fontSize: 18, color: Colors.white70),
                   ),
                   const SizedBox(height: 48),
-                  if (_error == null)
+                  if (_error == null || _syncWarningShown)
                     const CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.white70),
                     )

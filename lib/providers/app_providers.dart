@@ -40,3 +40,10 @@ final sectionsByCategoryProvider = FutureProvider.family<List<Section>, String>(
     return ref.read(quizRepositoryProvider).getSectionsByCategory(categoryId);
   },
 );
+
+final hasSectionAttemptProvider = FutureProvider.family<bool, String>((
+  ref,
+  sectionId,
+) async {
+  return ref.read(quizRepositoryProvider).hasAttempt(sectionId);
+});

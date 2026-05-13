@@ -29,6 +29,7 @@ class SectionsScreen extends ConsumerWidget {
           builder: (_) => QuizScreen(section: section),
         ),
       );
+      ref.invalidate(hasSectionAttemptProvider(section.id));
     } on NotEnoughQuestionsException catch (e) {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -38,6 +39,50 @@ class SectionsScreen extends ConsumerWidget {
           ),
         ),
       );
+    }
+  }
+
+  Future<void> _restartSection(
+    BuildContext context,
+    WidgetRef ref,
+    Section section,
+  ) async {
+    final repository = ref.read(quizRepositoryProvider);
+
+    try {
+      await repository.restartAttempt(section.id);
+      ref.invalidate(hasSectionAttemptProvider(section.id));
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Restarted "${section.name}" with a new random set of 50 questions.',
+          ),
+        ),
+      );
+    } on NotEnoughQuestionsException catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Not enough questions available offline for "${section.name}" (${e.availableCount}/50).',
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> _refresh(BuildContext context, WidgetRef ref) async {
+    try {
+      await ref.read(syncServiceProvider).syncAll();
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Sync skipped: $e')),
+      );
+    } finally {
+      ref.invalidate(sectionsByCategoryProvider(category.id));
+      await ref.read(sectionsByCategoryProvider(category.id).future);
     }
   }
 
@@ -77,15 +122,15 @@ class SectionsScreen extends ConsumerWidget {
           }
 
           return RefreshIndicator(
-            onRefresh: () async {
-              ref.invalidate(sectionsByCategoryProvider(category.id));
-              await ref.read(sectionsByCategoryProvider(category.id).future);
-            },
+            onRefresh: () => _refresh(context, ref),
             child: ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: sections.length,
               itemBuilder: (context, index) {
                 final section = sections[index];
+                final hasAttemptAsync = ref.watch(
+                  hasSectionAttemptProvider(section.id),
+                );
                 return Card(
                   margin: const EdgeInsets.only(bottom: 12),
                   child: ListTile(
@@ -108,7 +153,38 @@ class SectionsScreen extends ConsumerWidget {
                       'Tap to start or resume 50-question session',
                       style: GoogleFonts.poppins(fontSize: 12),
                     ),
-                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    trailing: hasAttemptAsync.when(
+                      data: (hasAttempt) => Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (hasAttempt)
+                            IconButton(
+                              tooltip: 'Restart section',
+                              onPressed: () => _restartSection(
+                                context,
+                                ref,
+                                section,
+                              ),
+                              icon: const Icon(Icons.refresh),
+                            ),
+                          Icon(
+                            hasAttempt
+                                ? Icons.play_circle_fill
+                                : Icons.arrow_forward_ios,
+                            size: 18,
+                          ),
+                        ],
+                      ),
+                      loading: () => const SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                      error: (_, __) => const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16,
+                      ),
+                    ),
                     onTap: () => _openSection(context, ref, section),
                   ),
                 );

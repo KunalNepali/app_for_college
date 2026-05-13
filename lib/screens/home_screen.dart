@@ -6,12 +6,43 @@ import '../models/category.dart';
 import '../providers/app_providers.dart';
 import 'sections_screen.dart';
 
-class HomeScreen extends ConsumerWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends ConsumerStatefulWidget {
+  const HomeScreen({super.key, this.syncWarningMessage});
+
+  final String? syncWarningMessage;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  bool _didShowSyncWarning = false;
+
+  Future<void> _refresh(WidgetRef ref) async {
+    try {
+      await ref.read(syncServiceProvider).syncAll();
+    } finally {
+      ref.invalidate(categoriesProvider);
+      await ref.read(categoriesProvider.future);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final categoriesAsync = ref.watch(categoriesProvider);
+
+    if (!_didShowSyncWarning && widget.syncWarningMessage != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final messenger = ScaffoldMessenger.maybeOf(context);
+        if (messenger == null) return;
+        messenger
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(content: Text(widget.syncWarningMessage!)),
+          );
+      });
+      _didShowSyncWarning = true;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -45,10 +76,7 @@ class HomeScreen extends ConsumerWidget {
           }
 
           return RefreshIndicator(
-            onRefresh: () async {
-              ref.invalidate(categoriesProvider);
-              await ref.read(categoriesProvider.future);
-            },
+            onRefresh: () => _refresh(ref),
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: GridView.builder(

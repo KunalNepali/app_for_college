@@ -132,75 +132,104 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   Widget build(BuildContext context) {
     final attempt = _attempt;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.section.name,
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
-        ),
-        backgroundColor: Colors.deepPurple,
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            tooltip: 'Restart section',
-            onPressed: _isLoading
-                ? null
-                : () async {
-                    final confirm = await showDialog<bool>(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('Restart section'),
-                        content: const Text(
-                          'This will discard current progress and pick a new random 50 questions.',
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, false),
-                            child: const Text('Cancel'),
-                          ),
-                          FilledButton(
-                            onPressed: () => Navigator.pop(context, true),
-                            child: const Text('Restart'),
-                          ),
-                        ],
-                      ),
-                    );
+    return WillPopScope(
+      onWillPop: () async {
+        if (_isLoading || attempt == null) {
+          return true;
+        }
 
-                    if (confirm == true) {
-                      await _restartSection();
-                    }
-                  },
-            icon: const Icon(Icons.refresh),
-          ),
-        ],
-      ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _error != null
-          ? Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Text(
-                  _error!,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(color: Colors.redAccent),
-                ),
-              ),
-            )
-          : attempt == null || _questions.isEmpty
-          ? Center(
-              child: Text(
-                'No active section attempt found.',
-                style: GoogleFonts.poppins(),
-              ),
-            )
-          : _QuizBody(
-              attempt: attempt,
-              questions: _questions,
-              onAnswer: _select,
-              onNavigate: _goTo,
-              onSubmit: _submit,
+        final shouldLeave = await showDialog<bool>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Leave section?'),
+            content: const Text(
+              'Your current 50-question attempt is saved locally and can be resumed later.',
             ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text('Stay'),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: const Text('Leave'),
+              ),
+            ],
+          ),
+        );
+
+        return shouldLeave ?? false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            widget.section.name,
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
+          ),
+          backgroundColor: Colors.deepPurple,
+          foregroundColor: Colors.white,
+          actions: [
+            IconButton(
+              tooltip: 'Restart section',
+              onPressed: _isLoading
+                  ? null
+                  : () async {
+                      final confirm = await showDialog<bool>(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('Restart section'),
+                          content: const Text(
+                            'This will discard current progress and pick a new random 50 questions.',
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, false),
+                              child: const Text('Cancel'),
+                            ),
+                            FilledButton(
+                              onPressed: () => Navigator.pop(context, true),
+                              child: const Text('Restart'),
+                            ),
+                          ],
+                        ),
+                      );
+
+                      if (confirm == true) {
+                        await _restartSection();
+                      }
+                    },
+              icon: const Icon(Icons.refresh),
+            ),
+          ],
+        ),
+        body: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : _error != null
+            ? Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Text(
+                    _error!,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(color: Colors.redAccent),
+                  ),
+                ),
+              )
+            : attempt == null || _questions.isEmpty
+            ? Center(
+                child: Text(
+                  'No active section attempt found.',
+                  style: GoogleFonts.poppins(),
+                ),
+              )
+            : _QuizBody(
+                attempt: attempt,
+                questions: _questions,
+                onAnswer: _select,
+                onNavigate: _goTo,
+                onSubmit: _submit,
+              ),
+      ),
     );
   }
 }
