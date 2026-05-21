@@ -12,7 +12,17 @@ import 'package:quiz_app_supabase/services/progress_service.dart';
 
 class QuizScreen extends ConsumerStatefulWidget {
   final Section section;
-  const QuizScreen({super.key, required this.section});
+
+  // NEW: optional batch control
+  final int? batchOffset;
+  final int? batchLimit;
+
+  const QuizScreen({
+    super.key,
+    required this.section,
+    this.batchOffset,
+    this.batchLimit,
+  });
 
   @override
   ConsumerState<QuizScreen> createState() => _QuizScreenState();
@@ -38,9 +48,14 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
         _errorMessage = null;
       });
 
-      final questions = await _supabaseService.getQuestionsBySection(
-        widget.section.id,
-      );
+      final questions =
+          (widget.batchOffset != null && widget.batchLimit != null)
+          ? await _supabaseService.getQuestionsBySectionBatch(
+              sectionId: widget.section.id,
+              offset: widget.batchOffset!,
+              limit: widget.batchLimit!,
+            )
+          : await _supabaseService.getQuestionsBySection(widget.section.id);
 
       setState(() {
         _questions = questions;
@@ -69,31 +84,34 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     required Map<String, String> selectedAnswersByQuestionId,
   }) async {
     int correctAnswers = 0;
+
+    // 1) Calculate score
     for (final q in _questions) {
       final userAnswer = selectedAnswersByQuestionId[q.id];
       if (userAnswer != null && userAnswer == q.correctAnswer) {
         correctAnswers++;
       }
-      // Save progress ONLY if user is logged in
-      if (Supabase.instance.client.auth.currentSession != null) {
-        try {
-          await _progressService.saveSectionAttempt(
-            sectionId: widget.section.id,
-            score: correctAnswers,
-            total: _questions.length,
-          );
-        } catch (e) {
-          // Don't block showing result if saving fails
-          debugPrint('Failed to save progress: $e');
-        }
+    }
+
+    // 2) Save progress ONCE (section + set if batched)
+    if (Supabase.instance.client.auth.currentSession != null) {
+      try {
+        await _progressService.saveAttemptForQuiz(
+          sectionId: widget.section.id,
+          score: correctAnswers,
+          total: _questions.length,
+          batchOffset: widget.batchOffset,
+          batchLimit: widget.batchLimit,
+        );
+      } catch (e) {
+        debugPrint('Failed to save progress: $e');
       }
     }
 
-    // Optional (recommended): clear progress when finished
+    // 3) Clear local resume progress when finished
     await ref.read(quizProgressProvider(widget.section.id).notifier).reset();
 
-    // If your ResultScreen currently expects Map<int, String> (index -> answer),
-    // convert from questionId->answer to index->answer:
+    // 4) Convert questionId->answer to index->answer for ResultScreen
     final Map<int, String> answersByIndex = {};
     for (int i = 0; i < _questions.length; i++) {
       final q = _questions[i];
@@ -103,10 +121,11 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
     if (!mounted) return;
 
+    // 5) Navigate to ResultScreen
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ResultScreen(
+        builder: (_) => ResultScreen(
           title: widget.section.name,
           totalQuestions: _questions.length,
           correctAnswers: correctAnswers,
@@ -149,7 +168,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.section.name,
+            (widget.batchOffset != null && widget.batchLimit != null)
+                ? '${widget.section.name} (Q${widget.batchOffset! + 1}-${widget.batchOffset! + widget.batchLimit!})'
+                : widget.section.name,
             style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
           ),
           backgroundColor: Colors.deepPurple,

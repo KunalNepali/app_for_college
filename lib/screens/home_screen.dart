@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app_supabase/models/category.dart';
@@ -16,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final SupabaseService _supabaseService = SupabaseService();
-
+  late final StreamSubscription<AuthState> _authSub;
   List<Category> _categories = [];
   bool _isLoading = true;
   String? _errorMessage;
@@ -25,6 +27,17 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _loadCategories();
+
+    _authSub = Supabase.instance.client.auth.onAuthStateChange.listen((_) {
+      // When login/logout happens, refresh categories
+      _loadCategories();
+    });
+  }
+
+  @override
+  void dispose() {
+    _authSub.cancel();
+    super.dispose();
   }
 
   Future<void> _loadCategories() async {

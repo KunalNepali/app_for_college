@@ -78,4 +78,37 @@ class SupabaseService {
         .map((e) => Notice.fromJson(e as Map<String, dynamic>))
         .toList();
   }
+
+  Future<int> getQuestionCountBySection(String sectionId) async {
+    try {
+      final res = await _supabase
+          .from('questions')
+          .select('id')
+          .eq('section_id', sectionId);
+
+      return (res as List).length;
+    } catch (e) {
+      throw Exception('Failed to count questions: $e');
+    }
+  }
+
+  Future<List<Question>> getQuestionsBySectionBatch({
+    required String sectionId,
+    required int offset,
+    required int limit,
+  }) async {
+    try {
+      final res = await _supabase
+          .from('questions')
+          .select()
+          .eq('section_id', sectionId)
+          .order('created_at', ascending: true)
+          .order('id', ascending: true)
+          .range(offset, offset + limit - 1);
+
+      return (res as List).map((q) => Question.fromJson(q)).toList();
+    } catch (e) {
+      throw Exception('Failed to load questions batch: $e');
+    }
+  }
 }

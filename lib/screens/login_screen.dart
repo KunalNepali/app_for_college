@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quiz_app_supabase/screens/home_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -25,7 +26,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
     setState(() => _loading = true);
     try {
-      // IMPORTANT: redirectTo must match your deep link scheme configured in Android + Supabase Auth settings
       await Supabase.instance.client.auth.signInWithOtp(
         email: email,
         emailRedirectTo: 'quizapp://login-callback',
@@ -45,6 +45,13 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void _goHome() {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const HomeScreen()),
+      (route) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
+        leading: IconButton(icon: const Icon(Icons.home), onPressed: _goHome),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -75,6 +83,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: _loading ? null : _sendMagicLink,
                 child: Text(_loading ? 'Sending...' : 'Send Magic Link'),
               ),
+            ),
+            const SizedBox(height: 12),
+            TextButton.icon(
+              onPressed: _goHome,
+              icon: const Icon(Icons.home),
+              label: const Text('Back to Home'),
             ),
           ],
         ),

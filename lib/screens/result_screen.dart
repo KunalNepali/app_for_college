@@ -41,7 +41,7 @@ class ResultScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
           (route) => false,
         );
         return false;
@@ -57,7 +57,7 @@ class ResultScreen extends StatelessWidget {
           leading: IconButton(
             onPressed: () {
               Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => HomeScreen()),
+                MaterialPageRoute(builder: (_) => const HomeScreen()),
                 (route) => false,
               );
             },

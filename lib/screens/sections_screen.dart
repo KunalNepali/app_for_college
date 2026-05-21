@@ -4,8 +4,10 @@ import 'package:quiz_app_supabase/models/category.dart';
 import 'package:quiz_app_supabase/models/section.dart';
 import 'package:quiz_app_supabase/screens/pdf_viewer_screen.dart';
 import 'package:quiz_app_supabase/screens/quiz_screen.dart';
+import 'package:quiz_app_supabase/screens/quiz_sets_screen.dart';
 import 'package:quiz_app_supabase/services/supabase_service.dart';
 import 'package:quiz_app_supabase/screens/local_notices_screen.dart';
+import 'package:quiz_app_supabase/services/supabase_service.dart';
 
 class SectionsScreen extends StatefulWidget {
   final Category category;
@@ -187,7 +189,7 @@ class _SectionsScreenState extends State<SectionsScreen> {
                               size: 16,
                               color: Colors.grey[400],
                             ),
-                      onTap: () {
+                      onTap: () async {
                         // 1) Syllabus -> open asset PDF
                         if (widget.category.name == 'Syllabus') {
                           final assetPath =
@@ -216,7 +218,7 @@ class _SectionsScreenState extends State<SectionsScreen> {
                           return;
                         }
 
-                        // 2) Notice -> open list from JSON (assets/data/*.json)
+                        // 2) Notice -> open list from JSON
                         if (widget.category.name == 'Notice') {
                           String? jsonPath;
 
@@ -243,7 +245,7 @@ class _SectionsScreenState extends State<SectionsScreen> {
                               builder: (_) => LocalNoticesScreen(
                                 title: section.name,
                                 jsonAssetPath:
-                                    jsonPath!, // safe due to check above
+                                    jsonPath!, // safe because we checked jsonPath == null above
                               ),
                             ),
                           );
@@ -266,31 +268,41 @@ class _SectionsScreenState extends State<SectionsScreen> {
                             );
                             return;
                           }
+                          // If not mapped to PDF, fall through to quiz batching logic below.
                         }
-                        // Set Questions -> open some sections as PDFs instead of quizzes
-                        if (widget.category.name == 'Set Questions') {
-                          final assetPath =
-                              _setQuestionsPdfBySectionName[section.name];
-                          if (assetPath != null) {
+
+                        // 4) Default -> Quiz (batched if > 50 questions)
+                        try {
+                          final supabaseService = SupabaseService();
+                          final count = await supabaseService
+                              .getQuestionCountBySection(section.id);
+
+                          if (!context.mounted) return;
+
+                          if (count > 50) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => PdfViewerScreen(
-                                  title: section.name,
-                                  assetPath: assetPath,
+                                builder: (_) => QuizSetsScreen(
+                                  section: section,
+                                  batchSize: 50,
                                 ),
                               ),
                             );
-                            return;
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => QuizScreen(section: section),
+                              ),
+                            );
                           }
+                        } catch (e) {
+                          if (!context.mounted) return;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Failed to open quiz: $e')),
+                          );
                         }
-                        // 4) Default -> Quiz
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => QuizScreen(section: section),
-                          ),
-                        );
                       },
                     ),
                   );
