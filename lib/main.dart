@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app_supabase/screens/splash_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'app.dart';
+import 'app_bootstrap.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

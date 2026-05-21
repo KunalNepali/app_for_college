@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app_supabase/models/category.dart';
-import 'package:quiz_app_supabase/screens/quizzes_screen.dart';
+import 'package:quiz_app_supabase/screens/login_screen.dart';
+import 'package:quiz_app_supabase/screens/profile_screen.dart';
+import 'package:quiz_app_supabase/screens/sections_screen.dart';
 import 'package:quiz_app_supabase/services/supabase_service.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -45,6 +48,23 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _openProfile(BuildContext context) {
+    final session = Supabase.instance.client.auth.currentSession;
+
+    if (session == null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const LoginScreen()),
+      );
+      return;
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const ProfileScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +75,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person),
+            onPressed: () => _openProfile(context),
+          ),
+        ],
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -133,16 +159,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: _categories.length,
                   itemBuilder: (context, index) {
                     final category = _categories[index];
-                    // inside GridView.builder:
                     return _CategoryCard(
                       category: category,
                       onTap: () {
-                        // TODO: Navigator.push(...)
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                QuizzesScreen(category: category),
+                            builder: (_) => SectionsScreen(category: category),
                           ),
                         );
                       },

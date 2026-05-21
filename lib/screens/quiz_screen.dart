@@ -7,6 +7,8 @@ import 'package:quiz_app_supabase/screens/result_screen.dart';
 import 'package:quiz_app_supabase/services/supabase_service.dart';
 
 import 'package:quiz_app_supabase/providers/quiz_progress_provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:quiz_app_supabase/services/progress_service.dart';
 
 class QuizScreen extends ConsumerStatefulWidget {
   final Section section;
@@ -17,6 +19,7 @@ class QuizScreen extends ConsumerStatefulWidget {
 }
 
 class _QuizScreenState extends ConsumerState<QuizScreen> {
+  final ProgressService _progressService = ProgressService();
   final SupabaseService _supabaseService = SupabaseService();
   List<Question> _questions = [];
   bool _isLoading = true;
@@ -70,6 +73,19 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       final userAnswer = selectedAnswersByQuestionId[q.id];
       if (userAnswer != null && userAnswer == q.correctAnswer) {
         correctAnswers++;
+      }
+      // Save progress ONLY if user is logged in
+      if (Supabase.instance.client.auth.currentSession != null) {
+        try {
+          await _progressService.saveSectionAttempt(
+            sectionId: widget.section.id,
+            score: correctAnswers,
+            total: _questions.length,
+          );
+        } catch (e) {
+          // Don't block showing result if saving fails
+          debugPrint('Failed to save progress: $e');
+        }
       }
     }
 

@@ -8,5 +8,196 @@
       "None"
     ],
     "correctIndex": 2
-  }
+  }, 
+  {
+    "question": "Who was the first Kirant King?",
+    "options": ["Humati", "Jitedasti", "Yalambar", "Jay dev"],
+    "correctIndex": 2
+  },
+    {
+    "question": "Gautam Buddha came to Nepal during which kirant king's regime?",
+    "options": ["Sthunko", "Jitedasti", "Supuspha", "Humati"],
+    "correctIndex": 1
+  },
+      {
+    "question": "Which king was related to Mahabharat's war",
+    "options": ["Sthunko", "Jaydev", "Gasti", "Humati"],
+    "correctIndex": 3
+  },
+      {
+    "question": "Who made Pashupatinath's southern side's Bhairav?",
+    "options": ["Shivasingh Malla", "Jaydev", "Bhuvansingh", "Supushpa"],
+    "correctIndex": 0
+  },
+      {
+    "question": "Who was kirant's last king?",
+    "options": ["Yalambar", "Jitedasti", "Gasti", "Sthunko"],
+    "correctIndex": 3
+  },
+      {
+    "question": "Samrat Ashok came to Nepal during which king's regime?",
+    "options": ["Jitedasti", "Birsingh", "Sthunko", "Supushpa"],
+    "correctIndex": 2
+  },
+      {
+    "question": "What number should be added in Sak sambat to match Bikram Sambat?",
+    "options": ["136 Years", "140 Years", "130 Years", "120 Years"],
+    "correctIndex": 1
+  },
+      {
+    "question": "Who was the first Buddha to enter Nepal?",
+    "options": ["Manjushree", "Sikhi Buddha", "Vipasvi Buddha", "Gautam Buddha"],
+    "correctIndex": 2
+  },
+      {
+    "question": "What is the name of parbat that Sikhi Buddha resided in?",
+    "options": ["Dhyanachyo", "Phulchoki", "Nagarjuna", "Devpatan"],
+    "correctIndex": 0
+  },
+      {
+    "question": "Who established 4 Narayans?",
+    "options": ["Brishdev", "Sankhar Dev", "Vijay Kaam Dev", "Haridatta"],
+    "correctIndex": 3
+  },
+  {
+  "question": "Who was Dharmadev's father?",
+  "options":  [ "Jaydev First","Sankhardev", "Shivadev Third", "Brisdev"], 
+    "correctIndex":   1
+    },
+{
+  "question":"Who build Pashupatinath's Temple?",
+  "options":["Supushpa","Jaydev First","Brisdev","Prachandadev"],
+  "correctIndex": 3 
+  },
+  {
+  "question": "Mananka was started by?",
+  "options":["Shivadev Third","Shivadev First","Maandev","Narendradev"], 
+  "correctIndex":  2
+  },
+    {
+  "question": "Who is represented as Pramnik King?",
+  "options":["Amsuverma","Shivadev First","Bhumiverma","Maandev"], 
+  "correctIndex":  3
+  },
+    {
+  "question": "Who build Kailashkut bhawan?",
+  "options":["Amsuverma","Bhimiverma","Jaydev","Humati"], 
+  "correctIndex":  0
+  },
+    {
+  "question": "Who was the first king of Gopal Dynasty?",
+  "options":["Bishnugupta","Jaygupta","Jaydev","Jitedasti"], 
+  "correctIndex":  1
+  },
+    {
+  "question": "Who built the city Deupatan?",
+  "options":["Jaydev","Bhrikuti","Amsuverma","Devpaal"], 
+  "correctIndex":  3
+  },
+    {
+  "question": "During Licchavi period what did 'Pradhan' represent?",
+  "options":["Bhardaar","Hajuriya","Gram Prasasak","Kaaji"], 
+  "correctIndex":  2
+  },
+    {
+  "question": "First priest of Pashupatinath?",
+  "options":["Swami Saraswati","Swami Dharmananda","Swami Vivekananda","Swami Sekharananda"], 
+  "correctIndex":  3
+  },
+    {
+  "question": "Which malla king was known as 'Sumati'",
+  "options":["Jitamit Malla","Bhim Malla","Pratap Malla","Yog Narendra Malla"], 
+  "correctIndex": 0  
+  }, 
+     {
+  "question": "In Licchavi period what was trade center called?",
+  "options":["Tala","Dhutak","Bisaya","Drang"], 
+  "correctIndex":  3
+  }, 
+    {
+  "question": "Who was the last king of Abhir Dynasty",
+  "options":["Birbhadra","Bar Singh","Bhuktaman","Bhuwan Singh"], 
+  "correctIndex":  2
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
+    {
+  "question": "",
+  "options":["","","",""], 
+  "correctIndex":  
+  },
 ]
+
