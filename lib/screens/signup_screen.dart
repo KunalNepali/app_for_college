@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app_supabase/screens/home_screen.dart';
-import 'package:quiz_app_supabase/screens/signup_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _name = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
 
@@ -21,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
+    _name.dispose();
     _email.dispose();
     _password.dispose();
     super.dispose();
@@ -33,77 +34,33 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<void> _login() async {
+  Future<void> _signup() async {
     if (!_formKey.currentState!.validate()) return;
 
     setState(() => _loading = true);
     try {
-      await Supabase.instance.client.auth.signInWithPassword(
+      await Supabase.instance.client.auth.signUp(
         email: _email.text.trim(),
         password: _password.text,
+        data: {'full_name': _name.text.trim()},
       );
 
       if (!mounted) return;
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
-        (route) => false,
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Account created. Please confirm your email, then login.',
+          ),
+        ),
       );
+
+      Navigator.pop(context);
     } catch (e) {
       if (!mounted) return;
-
-      final err = e.toString().toLowerCase();
-
-      final msg =
-          (err.contains('email not confirmed') ||
-              err.contains('email_not_confirmed') ||
-              err.contains('not confirmed'))
-          ? 'Please confirm your email first (check Inbox/Spam), then login.'
-          : (err.contains('invalid login credentials') ||
-                err.contains('invalid_credentials'))
-          ? 'Invalid email or password.'
-          : 'Login failed: $e';
-
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
-    } finally {
-      if (mounted) setState(() => _loading = false);
-    }
-  }
-
-  Future<void> _resetPassword() async {
-    final email = _email.text.trim();
-    if (email.isEmpty) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('Enter your email first')));
-      return;
-    }
-
-    setState(() => _loading = true);
-    try {
-      await Supabase.instance.client.auth.resetPasswordForEmail(email);
-
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Password reset email sent.')),
-      );
-    } catch (e) {
-      if (!mounted) return;
-
-      final err = e.toString().toLowerCase();
-
-      final msg =
-          (err.contains('email not confirmed') ||
-              err.contains('email_not_confirmed') ||
-              err.contains('not confirmed'))
-          ? 'Please confirm your email first (check Inbox/Spam), then login.'
-          : (err.contains('invalid login credentials') ||
-                err.contains('invalid_credentials'))
-          ? 'Invalid email or password.'
-          : 'Login failed: $e';
-
-      _password.clear(); // <-- add here
-
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+      ).showSnackBar(SnackBar(content: Text('Signup failed: $e')));
     } finally {
       if (mounted) setState(() => _loading = false);
     }
@@ -115,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(
-          'Login',
+          'Sign up',
           style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
         ),
         backgroundColor: Colors.deepPurple,
@@ -140,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        'Welcome back',
+                        'Create account',
                         style: GoogleFonts.poppins(
                           fontSize: 22,
                           fontWeight: FontWeight.w700,
@@ -148,10 +105,29 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        'Login using your email and password.',
+                        'Sign up with your name, email and password.',
                         style: GoogleFonts.poppins(color: Colors.grey[700]),
                       ),
                       const SizedBox(height: 18),
+
+                      TextFormField(
+                        controller: _name,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                          labelText: 'Full name',
+                          prefixIcon: const Icon(Icons.person_outline),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                        ),
+                        validator: (v) {
+                          final value = (v ?? '').trim();
+                          if (value.isEmpty) return 'Name is required';
+                          if (value.length < 2) return 'Name is too short';
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 12),
 
                       TextFormField(
                         controller: _email,
@@ -178,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: _password,
                         obscureText: !_showPassword,
                         textInputAction: TextInputAction.done,
-                        onFieldSubmitted: (_) => _login(),
+                        onFieldSubmitted: (_) => _signup(),
                         decoration: InputDecoration(
                           labelText: 'Password',
                           prefixIcon: const Icon(Icons.lock_outline),
@@ -207,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: _loading ? null : _login,
+                          onPressed: _loading ? null : _signup,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepPurple,
                             foregroundColor: Colors.white,
@@ -216,42 +192,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           child: Text(
-                            _loading ? 'Logging in...' : 'Login',
+                            _loading ? 'Creating...' : 'Create account',
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w600,
                             ),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 8),
-                      TextButton(
-                        onPressed: _loading ? null : _resetPassword,
-                        child: Text(
-                          'Forgot password?',
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-
-                      const Divider(height: 26),
-
-                      TextButton(
-                        onPressed: _loading
-                            ? null
-                            : () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const SignupScreen(),
-                                  ),
-                                );
-                              },
-                        child: Text(
-                          "New here? Create account",
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),

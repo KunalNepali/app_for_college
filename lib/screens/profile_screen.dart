@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:quiz_app_supabase/screens/home_screen.dart';
-import 'package:quiz_app_supabase/services/profile_service.dart';
+import '../services/profile_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -16,6 +16,27 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen>
     with SingleTickerProviderStateMixin {
+  int _totalAttempts() {
+    var total = 0;
+    for (final row in _sectionProgress) {
+      total += (row['attempt_count'] ?? 0) as int;
+    }
+    return total;
+  }
+
+  double _bestOverallPct() {
+    double best = 0.0;
+    for (final row in _sectionProgress) {
+      final bestScore = (row['best_score'] ?? 0) as int;
+      final bestTotal = (row['best_total'] ?? 0) as int;
+      if (bestTotal > 0) {
+        final pct = bestScore / bestTotal;
+        if (pct > best) best = pct;
+      }
+    }
+    return best;
+  }
+
   final SupabaseClient _client = Supabase.instance.client;
   final ProfileService _profileService = ProfileService();
 
@@ -165,90 +186,166 @@ class _ProfileScreenState extends State<ProfileScreen>
   Widget _headerCard() {
     final user = _client.auth.currentUser;
 
-    return Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
+    final sectionsAttempted = _sectionProgress.length;
+    final totalAttempts = _totalAttempts();
+    final bestPct = _bestOverallPct(); // 0..1
+
+    Widget stat(String label, String value) {
+      return Expanded(
+        child: Column(
           children: [
-            GestureDetector(
-              onTap: _saving ? null : _pickAvatar,
-              child: Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  CircleAvatar(
-                    radius: 34,
-                    backgroundColor: Colors.deepPurple.withOpacity(0.15),
-                    backgroundImage:
-                        (_avatarUrl != null && _avatarUrl!.isNotEmpty)
-                        ? NetworkImage(_avatarUrl!)
-                        : null,
-                    child: (_avatarUrl == null || _avatarUrl!.isEmpty)
-                        ? const Icon(
-                            Icons.person,
-                            size: 34,
-                            color: Colors.deepPurple,
-                          )
-                        : null,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: Colors.deepPurple,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.white, width: 2),
-                    ),
-                    child: const Icon(
-                      Icons.edit,
-                      size: 14,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
+            Text(
+              value,
+              style: GoogleFonts.poppins(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
               ),
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Your Profile',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: _nameController,
-                    textInputAction: TextInputAction.done,
-                    decoration: const InputDecoration(
-                      labelText: 'Full name',
-                      border: OutlineInputBorder(),
-                      isDense: true,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    user?.email ?? '',
-                    style: GoogleFonts.poppins(
-                      fontSize: 13,
-                      color: Colors.grey[700],
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: _saving ? null : _saveProfile,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurple,
-                        foregroundColor: Colors.white,
+            const SizedBox(height: 2),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                color: Colors.white.withOpacity(0.85),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF5B2EFF), Color(0xFF7C4DFF)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.deepPurple.withOpacity(0.25),
+            blurRadius: 18,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: _saving ? null : _pickAvatar,
+                  child: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      CircleAvatar(
+                        radius: 34,
+                        backgroundColor: Colors.white.withOpacity(0.25),
+                        backgroundImage:
+                            (_avatarUrl != null && _avatarUrl!.isNotEmpty)
+                            ? NetworkImage(_avatarUrl!)
+                            : null,
+                        child: (_avatarUrl == null || _avatarUrl!.isEmpty)
+                            ? const Icon(
+                                Icons.person,
+                                size: 34,
+                                color: Colors.white,
+                              )
+                            : null,
                       ),
-                      child: Text(_saving ? 'Saving...' : 'Save'),
-                    ),
+                      Container(
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Icon(
+                          Icons.edit,
+                          size: 14,
+                          color: Colors.deepPurple.shade700,
+                        ),
+                      ),
+                    ],
                   ),
+                ),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _nameController.text.trim().isEmpty
+                            ? 'Your Profile'
+                            : _nameController.text.trim(),
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        user?.email ?? '',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: Colors.white.withOpacity(0.9),
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  onPressed: _saving ? null : _saveProfile,
+                  icon: const Icon(Icons.save, color: Colors.white),
+                  tooltip: 'Save',
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+
+            // Name editor (white chip)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: TextField(
+                controller: _nameController,
+                textInputAction: TextInputAction.done,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Enter your full name',
+                  icon: Icon(Icons.badge_outlined),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            // Stats row
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Row(
+                children: [
+                  stat('Sections', '$sectionsAttempted'),
+                  Container(width: 1, height: 30, color: Colors.white24),
+                  stat('Attempts', '$totalAttempts'),
+                  Container(width: 1, height: 30, color: Colors.white24),
+                  stat('Best', '${(bestPct * 100).toStringAsFixed(0)}%'),
                 ],
               ),
             ),

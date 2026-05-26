@@ -1,27 +1,63 @@
+import 'dart:convert';
+
 import 'package:quiz_app_supabase/models/category.dart';
+import 'package:quiz_app_supabase/models/notice.dart';
 import 'package:quiz_app_supabase/models/question.dart';
 import 'package:quiz_app_supabase/models/section.dart';
-import 'package:quiz_app_supabase/models/notice.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseService {
   final SupabaseClient _supabase = Supabase.instance.client;
 
-  Future<List<Category>> getCategories() async {
+  static const _categoriesCacheKey = 'categories_cache_v1';
+  static const _sectionsCachePrefix = 'sections_cache_v1_'; // + categoryId
+  static const _questionsCachePrefix = 'questions_cache_v1_'; // + sectionId
+
+  /// Returns:
+  /// - categories: list of categories
+  /// - fromCache: true if loaded from local cache (offline fallback)
+  Future<({List<Category> categories, bool fromCache})> getCategories() async {
+    final prefs = await SharedPreferences.getInstance();
+
     try {
       final response = await _supabase
           .from('categories')
           .select()
           .order('created_at', ascending: true);
-      return (response as List)
-          .map((category) => Category.fromJson(category))
+
+      // Cache the raw rows (best for forward compatibility)
+      final rawRows = (response as List)
+          .map((e) => Map<String, dynamic>.from(e as Map))
           .toList();
+
+      await prefs.setString(_categoriesCacheKey, jsonEncode(rawRows));
+
+      final categories = rawRows.map((row) => Category.fromJson(row)).toList();
+      return (categories: categories, fromCache: false);
     } catch (e) {
+      // fallback to cache
+      final cached = prefs.getString(_categoriesCacheKey);
+      if (cached != null) {
+        final decoded = jsonDecode(cached) as List;
+        final rows = decoded
+            .map((e) => Map<String, dynamic>.from(e as Map))
+            .toList();
+
+        final categories = rows.map((row) => Category.fromJson(row)).toList();
+        return (categories: categories, fromCache: true);
+      }
+
       throw Exception('Failed to load categories: $e');
     }
   }
 
-  Future<List<Section>> getSectionsByCategory(String categoryId) async {
+  Future<({List<Section> sections, bool fromCache})> getSectionsByCategory(
+    String categoryId,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    final cacheKey = '$_sectionsCachePrefix$categoryId';
+
     try {
       final response = await _supabase
           .from('sections')
@@ -30,15 +66,35 @@ class SupabaseService {
           .order('sort_order', ascending: true)
           .order('created_at', ascending: true);
 
-      return (response as List)
-          .map((row) => Section.fromJson(row as Map<String, dynamic>))
+      final rawRows = (response as List)
+          .map((e) => Map<String, dynamic>.from(e as Map))
           .toList();
+
+      await prefs.setString(cacheKey, jsonEncode(rawRows));
+
+      final sections = rawRows.map((row) => Section.fromJson(row)).toList();
+      return (sections: sections, fromCache: false);
     } catch (e) {
+      final cached = prefs.getString(cacheKey);
+      if (cached != null) {
+        final decoded = jsonDecode(cached) as List;
+        final rows = decoded
+            .map((e) => Map<String, dynamic>.from(e as Map))
+            .toList();
+
+        final sections = rows.map((row) => Section.fromJson(row)).toList();
+        return (sections: sections, fromCache: true);
+      }
       throw Exception('Failed to load sections: $e');
     }
   }
 
-  Future<List<Question>> getQuestionsBySection(String sectionId) async {
+  Future<({List<Question> questions, bool fromCache})> getQuestionsBySection(
+    String sectionId,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    final cacheKey = '$_questionsCachePrefix$sectionId';
+
     try {
       final response = await _supabase
           .from('questions')
@@ -46,10 +102,25 @@ class SupabaseService {
           .eq('section_id', sectionId)
           .order('created_at', ascending: true);
 
-      return (response as List)
-          .map((row) => Question.fromJson(row as Map<String, dynamic>))
+      final rawRows = (response as List)
+          .map((e) => Map<String, dynamic>.from(e as Map))
           .toList();
+
+      await prefs.setString(cacheKey, jsonEncode(rawRows));
+
+      final questions = rawRows.map((row) => Question.fromJson(row)).toList();
+      return (questions: questions, fromCache: false);
     } catch (e) {
+      final cached = prefs.getString(cacheKey);
+      if (cached != null) {
+        final decoded = jsonDecode(cached) as List;
+        final rows = decoded
+            .map((e) => Map<String, dynamic>.from(e as Map))
+            .toList();
+
+        final questions = rows.map((row) => Question.fromJson(row)).toList();
+        return (questions: questions, fromCache: true);
+      }
       throw Exception('Failed to load questions: $e');
     }
   }

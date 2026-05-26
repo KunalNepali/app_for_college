@@ -3,17 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app_supabase/models/question.dart';
 import 'package:quiz_app_supabase/models/section.dart';
-import 'package:quiz_app_supabase/screens/result_screen.dart';
-import 'package:quiz_app_supabase/services/supabase_service.dart';
-
 import 'package:quiz_app_supabase/providers/quiz_progress_provider.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:quiz_app_supabase/screens/result_screen.dart';
 import 'package:quiz_app_supabase/services/progress_service.dart';
+import 'package:quiz_app_supabase/services/supabase_service.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class QuizScreen extends ConsumerStatefulWidget {
   final Section section;
 
-  // NEW: optional batch control
+  // optional batch control
   final int? batchOffset;
   final int? batchLimit;
 
@@ -31,9 +30,11 @@ class QuizScreen extends ConsumerStatefulWidget {
 class _QuizScreenState extends ConsumerState<QuizScreen> {
   final ProgressService _progressService = ProgressService();
   final SupabaseService _supabaseService = SupabaseService();
+
   List<Question> _questions = [];
   bool _isLoading = true;
   String? _errorMessage;
+  bool _showingCached = false;
 
   @override
   void initState() {
@@ -46,26 +47,39 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       setState(() {
         _isLoading = true;
         _errorMessage = null;
+        _showingCached = false;
       });
 
-      final questions =
-          (widget.batchOffset != null && widget.batchLimit != null)
-          ? await _supabaseService.getQuestionsBySectionBatch(
-              sectionId: widget.section.id,
-              offset: widget.batchOffset!,
-              limit: widget.batchLimit!,
-            )
-          : await _supabaseService.getQuestionsBySection(widget.section.id);
+      // If batching is enabled, keep using batch API (online-only unless you also add cache there)
+      if (widget.batchOffset != null && widget.batchLimit != null) {
+        final questions = await _supabaseService.getQuestionsBySectionBatch(
+          sectionId: widget.section.id,
+          offset: widget.batchOffset!,
+          limit: widget.batchLimit!,
+        );
 
-      setState(() {
-        _questions = questions;
-        _isLoading = false;
-      });
+        setState(() {
+          _questions = questions;
+          _isLoading = false;
+          _showingCached = false;
+        });
+      } else {
+        // Non-batched: cached getter returns record {questions, fromCache}
+        final res = await _supabaseService.getQuestionsBySection(
+          widget.section.id,
+        );
 
-      // After questions load, clamp saved index if needed (important on resume)
+        setState(() {
+          _questions = res.questions;
+          _isLoading = false;
+          _showingCached = res.fromCache;
+        });
+      }
+
+      // Clamp saved index if needed (important on resume)
       final progress = ref.read(quizProgressProvider(widget.section.id)).value;
-      if (progress != null && questions.isNotEmpty) {
-        final maxIndex = questions.length - 1;
+      if (progress != null && _questions.isNotEmpty) {
+        final maxIndex = _questions.length - 1;
         if (progress.currentIndex > maxIndex) {
           await ref
               .read(quizProgressProvider(widget.section.id).notifier)
@@ -74,8 +88,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       }
     } catch (e) {
       setState(() {
-        _errorMessage = 'Failed to load questions: $e';
+        _errorMessage = e.toString();
         _isLoading = false;
+        _showingCached = false;
       });
     }
   }
@@ -85,7 +100,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   }) async {
     int correctAnswers = 0;
 
-    // 1) Calculate score
     for (final q in _questions) {
       final userAnswer = selectedAnswersByQuestionId[q.id];
       if (userAnswer != null && userAnswer == q.correctAnswer) {
@@ -93,7 +107,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       }
     }
 
-    // 2) Save progress ONCE (section + set if batched)
+    // Save attempt (only if logged in)
     if (Supabase.instance.client.auth.currentSession != null) {
       try {
         await _progressService.saveAttemptForQuiz(
@@ -108,10 +122,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       }
     }
 
-    // 3) Clear local resume progress when finished
+    // Clear local resume progress when finished
     await ref.read(quizProgressProvider(widget.section.id).notifier).reset();
 
-    // 4) Convert questionId->answer to index->answer for ResultScreen
+    // Convert questionId->answer to index->answer for ResultScreen
     final Map<int, String> answersByIndex = {};
     for (int i = 0; i < _questions.length; i++) {
       final q = _questions[i];
@@ -121,7 +135,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
     if (!mounted) return;
 
-    // 5) Navigate to ResultScreen
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -207,6 +220,18 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
                   return Column(
                     children: [
+                      if (_showingCached)
+                        Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Text(
+                            'Offline mode: showing saved questions',
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.orange,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       Container(
                         padding: const EdgeInsets.all(16),
                         color: Colors.deepPurple.shade50,
@@ -456,7 +481,6 @@ class _OptionButton extends StatelessWidget {
   }
 }
 
-// Small extracted widgets for readability (optional)
 class _EmptyQuestionsState extends StatelessWidget {
   const _EmptyQuestionsState();
 

@@ -19,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final SupabaseService _supabaseService = SupabaseService();
   late final StreamSubscription<AuthState> _authSub;
+  bool _showingCached = false;
   List<Category> _categories = [];
   bool _isLoading = true;
   String? _errorMessage;
@@ -45,18 +46,21 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _isLoading = true;
         _errorMessage = null;
+        _showingCached = false;
       });
 
-      final categories = await _supabaseService.getCategories();
+      final res = await _supabaseService.getCategories();
 
       setState(() {
-        _categories = categories;
+        _categories = res.categories;
+        _showingCached = res.fromCache;
         _isLoading = false;
       });
     } catch (e) {
       setState(() {
-        _errorMessage = 'Failed to load categories: $e';
+        _errorMessage = e.toString(); // already includes "Failed to load..."
         _isLoading = false;
+        _showingCached = false;
       });
     }
   }
@@ -158,36 +162,149 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             )
-          : RefreshIndicator(
-              onRefresh: _loadCategories,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    childAspectRatio: 0.8,
+          : Column(
+              children: [
+                if (_showingCached)
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Text(
+                      'Offline mode: showing saved categories',
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.orange,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  itemCount: _categories.length,
-                  itemBuilder: (context, index) {
-                    final category = _categories[index];
-                    return _CategoryCard(
-                      category: category,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => SectionsScreen(category: category),
-                          ),
-                        );
-                      },
-                    );
-                  },
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: _loadCategories,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 16,
+                              mainAxisSpacing: 16,
+                              childAspectRatio: 0.8,
+                            ),
+                        itemCount: _categories.length,
+                        itemBuilder: (context, index) {
+                          final category = _categories[index];
+                          return _CategoryCard(
+                            category: category,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      SectionsScreen(category: category),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
     );
+  }
+}
+
+class _CategoryVisual {
+  final IconData icon;
+  final Color color;
+  final Color bg;
+
+  const _CategoryVisual({
+    required this.icon,
+    required this.color,
+    required this.bg,
+  });
+}
+
+_CategoryVisual _visualForCategory(String name) {
+  switch (name.trim()) {
+    case 'General Knowledge':
+      return _CategoryVisual(
+        icon: Icons.public,
+        color: Colors.deepPurple,
+        bg: const Color(0xFFF1EAFE),
+      );
+
+    case 'English Language':
+      return _CategoryVisual(
+        icon: Icons.translate,
+        color: Colors.indigo,
+        bg: const Color(0xFFEEF0FF),
+      );
+
+    case 'Nepali Language':
+      return _CategoryVisual(
+        icon: Icons.language,
+        color: Colors.redAccent,
+        bg: const Color(0xFFFFEDEE),
+      );
+
+    case 'Reasoning':
+      return _CategoryVisual(
+        icon: Icons.psychology,
+        color: Colors.green,
+        bg: const Color(0xFFE9FBEA),
+      );
+
+    case 'Professional Knowledge':
+      return _CategoryVisual(
+        icon: Icons.school,
+        color: Colors.blue,
+        bg: const Color(0xFFE8F1FF),
+      );
+
+    case 'Professional Behavioral Test':
+      return _CategoryVisual(
+        icon: Icons.fact_check,
+        color: Colors.teal,
+        bg: const Color(0xFFE6FFFA),
+      );
+
+    case 'Gorkhapatra':
+      return _CategoryVisual(
+        icon: Icons.newspaper,
+        color: Colors.brown,
+        bg: const Color(0xFFF7EFE7),
+      );
+
+    case 'Notice':
+      return _CategoryVisual(
+        icon: Icons.campaign,
+        color: Colors.orange,
+        bg: const Color(0xFFFFF4E5),
+      );
+
+    case 'Set Questions':
+      return _CategoryVisual(
+        icon: Icons.assignment,
+        color: Colors.blueGrey,
+        bg: const Color(0xFFEEF2F6),
+      );
+
+    case 'Syllabus':
+      return _CategoryVisual(
+        icon: Icons.menu_book,
+        color: Colors.deepPurple,
+        bg: const Color(0xFFF1EAFE),
+      );
+
+    default:
+      return _CategoryVisual(
+        icon: Icons.category,
+        color: Colors.grey,
+        bg: const Color(0xFFF3F4F6),
+      );
   }
 }
 
@@ -199,6 +316,8 @@ class _CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final v = _visualForCategory(category.name);
+
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -215,7 +334,15 @@ class _CategoryCard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.category, size: 48, color: Colors.deepPurple),
+                Container(
+                  width: 64,
+                  height: 64,
+                  decoration: BoxDecoration(
+                    color: v.bg,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Icon(v.icon, size: 36, color: v.color),
+                ),
                 const SizedBox(height: 16),
                 Text(
                   category.name,
@@ -223,7 +350,7 @@ class _CategoryCard extends StatelessWidget {
                   style: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.deepPurple,
+                    color: v.color,
                   ),
                 ),
                 if (category.description != null) ...[

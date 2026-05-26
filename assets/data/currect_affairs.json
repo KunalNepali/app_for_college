@@ -1,5 +1,35 @@
 [
   {
+    "question": "How many members are there in ASEAN ?",
+    "options": ["10", "13", "11", "12"],
+    "correctIndex": 2
+  },
+    {
+    "question": "Pangolin Conference 2082 was held in?",
+    "options": ["Pokhara", "Lalitpur", "Kathmandu", "Chitwan Madi"],
+    "correctIndex": 3
+  },
+    {
+    "question": "Nepal signed labour agreement with which country recently?",
+    "options": ["Malta", "Saudi Arab", "Dubai", "Qatar"],
+    "correctIndex": 1
+  },
+   {
+    "question": "Which movie won oscar for best picture in 2026 ?",
+    "options": ["Sinners", "Anora", "Weapons", "One Battle After Another"],
+    "correctIndex": 3
+  }, 
+   {
+    "question": "What was the theme of National Yog Day 2082 ?",
+    "options": [
+"योग गरौँ, स्वास्थ्य रहौँ",
+"शान्तिका लागि योग",
+"कृषि, जैविक विविधता र योग",
+"स्वस्थ समाज, समृद्ध नेपाल र विश्व शान्तिको लागि योग"
+  ],
+    "correctIndex": 3
+  }, 
+  {
     "question": "Who is listed here as the youngest car driver?",
     "options": ["Dustin Jackson", "Mark L. Griffin", "Taylor Wilson", "Jack Hill"],
     "correctIndex": 0
